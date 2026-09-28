@@ -160,7 +160,7 @@ button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px so
 .lupa-caixa img{display:block;width:100%;height:auto}
 .lupa{position:absolute;z-index:2;width:180px;height:180px;border-radius:50%;overflow:hidden;
   transform:translate(-50%,-50%);cursor:zoom-out;
-  border:5px solid #EDF1EA;box-shadow:0 8px 22px rgba(0,0,0,.5), inset 0 0 18px rgba(0,0,0,.25)}
+  background:#E7EAEA;border:5px solid #EDF1EA;box-shadow:0 8px 22px rgba(0,0,0,.5), inset 0 0 18px rgba(0,0,0,.25)}
 .lupa[hidden]{display:none}
 .lupa svg{width:100%;height:100%;display:block}
 
@@ -979,29 +979,70 @@ function render(q){
             <img src="${q.imagem}" alt="Liquens amarelos e cinzentos cobrindo o galho de uma árvore">
             <div class="lupa" hidden>
               <svg viewBox="0 0 100 100" aria-hidden="true">
-                <rect width="100" height="100" fill="#F3E6CC"/>
-                <g stroke="#B08442" stroke-width="2.6" fill="none" stroke-linecap="round">
-                  <path d="M-5 30 C18 22,38 38,60 27 C76 19,92 32,105 25"/>
-                  <path d="M-5 39 C16 31,34 47,56 36 C74 27,90 40,105 33"/>
-                  <path d="M-5 66 C18 58,38 74,60 63 C76 55,92 68,105 61"/>
-                  <path d="M-5 75 C16 67,34 83,56 72 C74 63,90 76,105 69"/>
-                  <path d="M14 20 C8 34,20 46,12 62 C6 72,16 82,12 94"/>
-                  <path d="M86 20 C92 34,80 46,88 62 C94 72,84 82,88 94"/>
+                <defs>
+                  <radialGradient id="alga" cx="38%" cy="33%" r="72%">
+                    <stop offset="0" stop-color="#A8D466"/>
+                    <stop offset=".55" stop-color="#6BA331"/>
+                    <stop offset="1" stop-color="#48761F"/>
+                  </radialGradient>
+                </defs>
+                <rect width="100" height="100" fill="#E7EAEA"/>
+                <g fill="none" stroke-linecap="round" stroke="#8FA6A8" stroke-width="7.6">
+                  <path d="M-8 12 C20 19,46 7,72 13 C88 17,98 12,108 15"/>
+                  <path d="M-8 31 C14 25,30 41,52 37 C72 33,90 43,108 39"/>
+                  <path d="M-8 73 C16 79,34 65,54 71 C74 77,92 67,108 73"/>
+                  <path d="M7 -8 C13 20,5 40,11 62 C15 80,9 92,13 108"/>
+                  <path d="M93 -8 C87 20,97 40,91 62 C87 80,95 92,91 108"/>
+                  <path d="M-8 53 C8 51,16 59,25 57"/>
+                  <path d="M108 57 C92 55,84 63,75 61"/>
+                  <path d="M28 72 C33 79,42 81,47 76"/>
+                  <path d="M72 33 C67 26,58 24,53 29"/>
                 </g>
-                <g fill="#49A055" stroke="#2E6B37" stroke-width="1.4">
-                  <circle cx="24" cy="52" r="6.5"/><circle cx="42" cy="47" r="5.6"/>
-                  <circle cx="58" cy="54" r="6.8"/><circle cx="74" cy="48" r="5.4"/>
-                  <circle cx="34" cy="61" r="4.8"/><circle cx="66" cy="62" r="4.6"/>
+                <g fill="none" stroke-linecap="round" stroke="#DEEBEC" stroke-width="5.2">
+                  <path d="M-8 12 C20 19,46 7,72 13 C88 17,98 12,108 15"/>
+                  <path d="M-8 31 C14 25,30 41,52 37 C72 33,90 43,108 39"/>
+                  <path d="M-8 73 C16 79,34 65,54 71 C74 77,92 67,108 73"/>
+                  <path d="M7 -8 C13 20,5 40,11 62 C15 80,9 92,13 108"/>
+                  <path d="M93 -8 C87 20,97 40,91 62 C87 80,95 92,91 108"/>
+                  <path d="M-8 53 C8 51,16 59,25 57"/>
+                  <path d="M108 57 C92 55,84 63,75 61"/>
+                  <path d="M28 72 C33 79,42 81,47 76"/>
+                  <path d="M72 33 C67 26,58 24,53 29"/>
                 </g>
-                <g fill="#8FD39A" opacity=".85">
-                  <circle cx="22" cy="50" r="2"/><circle cx="56" cy="52" r="2.1"/><circle cx="72" cy="46" r="1.7"/>
+                <g stroke="#3B6A1C" stroke-width="1.1">
+                  <circle cx="24" cy="41" r="6" fill="url(#alga)"/>
+                  <circle cx="38" cy="44" r="7" fill="url(#alga)"/>
+                  <circle cx="50" cy="40" r="6.6" fill="url(#alga)"/>
+                  <circle cx="62" cy="45" r="7.2" fill="url(#alga)"/>
+                  <circle cx="78" cy="43" r="6.4" fill="url(#alga)"/>
+                  <circle cx="33" cy="55" r="6.8" fill="url(#alga)"/>
+                  <circle cx="46" cy="53" r="7.4" fill="url(#alga)"/>
+                  <circle cx="59" cy="55" r="6.6" fill="url(#alga)"/>
+                  <circle cx="71" cy="58" r="6" fill="url(#alga)"/>
+                  <circle cx="40" cy="65" r="6.4" fill="url(#alga)"/>
+                  <circle cx="53" cy="66" r="7" fill="url(#alga)"/>
+                  <circle cx="65" cy="69" r="5.6" fill="url(#alga)"/>
                 </g>
-                <path d="M44 21 L40 30" stroke="#6B4A1E" stroke-width="1.3" fill="none"/>
-                <path d="M58 78 L58 61" stroke="#14421D" stroke-width="1.3" fill="none"/>
-                <rect x="-5" y="2" width="110" height="19" fill="#FFFFFF" opacity=".9"/>
-                <text x="50" y="11" text-anchor="middle" font-size="6.2" font-weight="700" fill="#6B4A1E">hifas do fungo</text>
-                <text x="50" y="18.4" text-anchor="middle" font-size="4.3" fill="#4A3312">dão estrutura e seguram a água</text>
-                <rect x="-5" y="78" width="110" height="19" fill="#FFFFFF" opacity=".9"/>
+                <g fill="#41701C" opacity=".4">
+                  <circle cx="26" cy="43.5" r="2.5"/>
+                  <circle cx="40" cy="46.5" r="2.9"/>
+                  <circle cx="52" cy="42.5" r="2.8"/>
+                  <circle cx="64" cy="47.5" r="3.0"/>
+                  <circle cx="80" cy="45.5" r="2.7"/>
+                  <circle cx="35" cy="57.5" r="2.9"/>
+                  <circle cx="48" cy="55.5" r="3.1"/>
+                  <circle cx="61" cy="57.5" r="2.8"/>
+                  <circle cx="73" cy="60.5" r="2.5"/>
+                  <circle cx="42" cy="67.5" r="2.7"/>
+                  <circle cx="55" cy="68.5" r="2.9"/>
+                  <circle cx="67" cy="71.5" r="2.4"/>
+                </g>
+                <path d="M44 21 L40 29" stroke="#5A7173" stroke-width="1.3" fill="none"/>
+                <path d="M56 78 L54 72" stroke="#14421D" stroke-width="1.3" fill="none"/>
+                <rect x="-5" y="2" width="110" height="19" fill="#FFFFFF" opacity=".92"/>
+                <text x="50" y="11" text-anchor="middle" font-size="6.2" font-weight="700" fill="#4C6264">hifas do fungo</text>
+                <text x="50" y="18.4" text-anchor="middle" font-size="4.3" fill="#41585A">dão estrutura e seguram a água</text>
+                <rect x="-5" y="78" width="110" height="19" fill="#FFFFFF" opacity=".92"/>
                 <text x="50" y="87" text-anchor="middle" font-size="6.2" font-weight="700" fill="#14421D">algas</text>
                 <text x="50" y="94.2" text-anchor="middle" font-size="4.3" fill="#123B1A">fazem fotossíntese</text>
               </svg>
