@@ -152,14 +152,29 @@ button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px so
 
 
 /* Questão com vídeo: o vídeo à esquerda e as alternativas à direita */
-.video-caixa{display:flex;gap:18px;align-items:flex-start}
-.video-esq{flex:0 0 auto;width:340px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#000}
+.video-caixa,.img-caixa{display:flex;gap:18px;align-items:flex-start}
+.video-esq,.img-esq{flex:0 0 auto;width:340px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#000}
+
+/* Lupa sobre a foto dos liquens: mostra por dentro o que a foto não conta */
+.lupa-caixa{position:relative;line-height:0;cursor:zoom-in;touch-action:manipulation}
+.lupa-caixa img{display:block;width:100%;height:auto}
+.lupa{position:absolute;width:158px;height:158px;border-radius:50%;overflow:hidden;
+  transform:translate(-50%,-50%);cursor:zoom-out;
+  border:5px solid #EDF1EA;box-shadow:0 8px 22px rgba(0,0,0,.5), inset 0 0 18px rgba(0,0,0,.25)}
+.lupa[hidden]{display:none}
+.lupa svg{width:100%;height:100%;display:block}
+.lupa span{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;
+  font-family:var(--body);font-size:11px;font-weight:700;line-height:1.5;padding:1px 8px;border-radius:999px}
+.rot-fungo{top:14px;background:#B08442;color:#2A1C0B}
+.rot-alga{bottom:14px;background:#2E6B37;color:#fff}
 .video-esq video{display:block;width:100%;height:auto;max-height:330px;background:#000}
-.video-dir{flex:1 1 auto;min-width:0}
-.video-dir .opt{margin-bottom:8px}
+.img-esq{background:var(--bg)}
+.video-dir,.img-dir{flex:1 1 auto;min-width:0}
+.video-dir .opt,.img-dir .opt{margin-bottom:8px}
 @media (max-width:620px){
-  .video-caixa{flex-direction:column;align-items:stretch;gap:12px}
-  .video-esq{width:100%}
+  .video-caixa,.img-caixa{flex-direction:column;align-items:stretch;gap:12px}
+  .video-esq,.img-esq{width:100%}
+  .lupa{width:132px;height:132px}
 }
 
 /* Círculos para marcar (várias respostas) */
@@ -554,7 +569,9 @@ const BASE = [
          {id:'d',t:'Desarmônica: alguém é prejudicado',cls:'b'}],
   correct:{carr:'d',liq:'h',leao:'d',orq:'h',pica:'d',hie:'h'}},
 
- {id:7,type:'mc',por:'Os dois ganham e a relação é obrigatória: isso é mutualismo. O líquen é o exemplo clássico, e é por isso que ele costuma ser tratado como um único ser vivo.',
+ {id:7,type:'mc',imagem:'imagens/liquens.webp',tag:'Tocar',
+  hint:'Toque na imagem para ver de perto. Toque de novo na lupa para fechá-la.',
+  por:'Os dois ganham e a relação é obrigatória: isso é mutualismo. O líquen é o exemplo clássico, e é por isso que ele costuma ser tratado como um único ser vivo.',
   text:'Os liquens são formados por fungos e algas vivendo juntos: o fungo dá proteção e água para a alga, e a alga faz fotossíntese e alimenta o fungo. Separados, eles não sobrevivem. Essa relação é:',
   opts:['mutualismo.','protocooperação.','inquilinismo.','predação.'],ans:0},
 
@@ -751,6 +768,23 @@ window.addEventListener('resize',()=>{
 window.addEventListener('orientationchange',()=>setTimeout(refit,250));
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(refit);
 
+function ligarLupa(body){
+  const caixa = body.querySelector('.lupa-caixa'); if(!caixa) return;
+  const lupa = caixa.querySelector('.lupa');
+  caixa.addEventListener('click', e=>{
+    if(lupa.contains(e.target)){ lupa.hidden = true; return; }   // toque na lupa fecha
+    const r = caixa.getBoundingClientRect();
+    if(!r.width || !r.height) return;
+    // a página inteira é reduzida por uma escala, mas o toque e a moldura
+    // estão na mesma escala, então a conta em porcentagem continua certa
+    const x = (e.clientX - r.left) / r.width * 100;
+    const y = (e.clientY - r.top) / r.height * 100;
+    lupa.style.left = Math.max(16, Math.min(84, x)) + '%';
+    lupa.style.top  = Math.max(20, Math.min(80, y)) + '%';
+    lupa.hidden = false;
+  });
+}
+
 function acordarVideo(){
   document.querySelectorAll('.q video').forEach(v=>{
     const ativo = v.closest('.q').classList.contains('ativa') && vista==='prova';
@@ -934,6 +968,42 @@ function render(q){
           <div class="video-dir"></div></div>`;
       }
       body.querySelector('.video-dir').innerHTML = q.opts.map((o,i)=>`<button class="opt ${a===i?'on':''}" data-i="${i}" aria-pressed="${a===i}"><span class="let">${'abcde'[i]}</span><span>${o}</span></button>`).join('');
+    }
+    else if(q.imagem){
+      // montada uma vez só: recriar apagaria a lupa a cada resposta
+      if(!body.querySelector('.img-caixa')){
+        body.innerHTML = `<div class="img-caixa">
+          <div class="img-esq"><div class="lupa-caixa">
+            <img src="${q.imagem}" alt="Liquens amarelos e cinzentos cobrindo o galho de uma árvore">
+            <div class="lupa" hidden>
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <rect width="100" height="100" fill="#F3E6CC"/>
+                <g stroke="#B08442" stroke-width="2.6" fill="none" stroke-linecap="round">
+                  <path d="M-5 14 C18 6,38 22,60 11 C76 3,92 16,105 9"/>
+                  <path d="M-5 27 C16 19,34 35,56 24 C74 15,90 28,105 21"/>
+                  <path d="M-5 74 C18 66,38 82,60 71 C76 63,92 76,105 69"/>
+                  <path d="M-5 88 C16 80,34 96,56 85 C74 76,90 89,105 82"/>
+                  <path d="M12 -5 C6 22,20 44,10 70 C4 86,14 98,10 105"/>
+                  <path d="M88 -5 C94 22,80 44,90 70 C96 86,86 98,90 105"/>
+                </g>
+                <g fill="#49A055" stroke="#2E6B37" stroke-width="1.4">
+                  <circle cx="22" cy="50" r="6.5"/><circle cx="40" cy="44" r="5.6"/>
+                  <circle cx="56" cy="52" r="6.8"/><circle cx="73" cy="45" r="5.4"/>
+                  <circle cx="33" cy="60" r="4.8"/><circle cx="64" cy="62" r="5"/>
+                  <circle cx="86" cy="57" r="4.4"/><circle cx="10" cy="60" r="4.2"/>
+                </g>
+                <g fill="#8FD39A" opacity=".8">
+                  <circle cx="20" cy="48" r="2"/><circle cx="54" cy="50" r="2.1"/><circle cx="71" cy="43" r="1.7"/>
+                </g>
+              </svg>
+              <span class="rot-fungo">filamentos do fungo</span>
+              <span class="rot-alga">algas</span>
+            </div>
+          </div></div>
+          <div class="img-dir"></div></div>`;
+        ligarLupa(body);
+      }
+      body.querySelector('.img-dir').innerHTML = q.opts.map((o,i)=>`<button class="opt ${a===i?'on':''}" data-i="${i}" aria-pressed="${a===i}"><span class="let">${'abcde'[i]}</span><span>${o}</span></button>`).join('');
     }
     else if(q.figs){
       body.innerHTML = `<div class="figs">${q.opts.map((o,i)=>`<button class="opt fig ${a===i?'on':''}" data-i="${i}" aria-pressed="${a===i}" aria-label="Figura ${'abcde'[i]}: ${o.nome}"><span class="let">${'abcde'[i]}</span>${o.svg}<span class="fig-nome">${o.nome}</span></button>`).join('')}</div>`;
