@@ -167,6 +167,9 @@ button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px so
   font-family:var(--body);font-size:11px;font-weight:700;line-height:1.5;padding:1px 8px;border-radius:999px}
 .rot-fungo{top:14px;background:#B08442;color:#2A1C0B}
 .rot-alga{bottom:14px;background:#2E6B37;color:#fff}
+.lupa-legenda{margin:0;padding:8px 10px;font-size:12.5px;line-height:1.35;
+  color:var(--ink);background:var(--paper);border-top:1px solid var(--line)}
+.lupa-legenda[hidden]{display:none}
 .video-esq video{display:block;width:100%;height:auto;max-height:330px;background:#000}
 .img-esq{background:var(--bg)}
 .video-dir,.img-dir{flex:1 1 auto;min-width:0}
@@ -571,7 +574,7 @@ const BASE = [
 
  {id:7,type:'mc',imagem:'imagens/liquens.webp',tag:'Tocar',
   hint:'Toque na imagem para ver de perto. Toque de novo na lupa para fechá-la.',
-  por:'Os dois ganham e a relação é obrigatória: isso é mutualismo. O líquen é o exemplo clássico, e é por isso que ele costuma ser tratado como um único ser vivo.',
+  por:'Os dois ganham e a relação é obrigatória: isso é mutualismo. No líquen, as hifas do fungo formam a estrutura que segura a água e protege, e as algas, as esferas verdes, fazem a fotossíntese que alimenta os dois. É por isso que o líquen costuma ser tratado como um único ser vivo.',
   text:'Os liquens são formados por fungos e algas vivendo juntos: o fungo dá proteção e água para a alga, e a alga faz fotossíntese e alimenta o fungo. Separados, eles não sobrevivem. Essa relação é:',
   opts:['mutualismo.','protocooperação.','inquilinismo.','predação.'],ans:0},
 
@@ -771,8 +774,10 @@ if(document.fonts && document.fonts.ready) document.fonts.ready.then(refit);
 function ligarLupa(body){
   const caixa = body.querySelector('.lupa-caixa'); if(!caixa) return;
   const lupa = caixa.querySelector('.lupa');
+  const legenda = caixa.parentNode.querySelector('.lupa-legenda');
+  const mostrar = v => { lupa.hidden = !v; if(legenda) legenda.hidden = !v; refit(); };
   caixa.addEventListener('click', e=>{
-    if(lupa.contains(e.target)){ lupa.hidden = true; return; }   // toque na lupa fecha
+    if(lupa.contains(e.target)){ mostrar(false); return; }   // toque na lupa fecha
     const r = caixa.getBoundingClientRect();
     if(!r.width || !r.height) return;
     // a página inteira é reduzida por uma escala, mas o toque e a moldura
@@ -781,7 +786,7 @@ function ligarLupa(body){
     const y = (e.clientY - r.top) / r.height * 100;
     lupa.style.left = Math.max(16, Math.min(84, x)) + '%';
     lupa.style.top  = Math.max(20, Math.min(80, y)) + '%';
-    lupa.hidden = false;
+    mostrar(true);
   });
 }
 
@@ -996,10 +1001,12 @@ function render(q){
                   <circle cx="20" cy="48" r="2"/><circle cx="54" cy="50" r="2.1"/><circle cx="71" cy="43" r="1.7"/>
                 </g>
               </svg>
-              <span class="rot-fungo">filamentos do fungo</span>
+              <span class="rot-fungo">hifas do fungo</span>
               <span class="rot-alga">algas</span>
             </div>
-          </div></div>
+          </div>
+            <p class="lupa-legenda" hidden>As <b>hifas</b> são os filamentos do fungo: formam a estrutura, seguram a água e protegem. As <b>esferas verdes</b> são as algas, que fazem a fotossíntese e produzem o alimento dos dois.</p>
+          </div>
           <div class="img-dir"></div></div>`;
         ligarLupa(body);
       }
