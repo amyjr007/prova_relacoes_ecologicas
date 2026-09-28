@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3ª Avaliação de Ciências – Relações ecológicas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+:root{
+  --bg:#EDF3EC;--paper:#FFFFFF;--ink:#16281F;--muted:#586B5E;--line:#D3DFD2;
+  --art:#2E7D4F;--art-soft:#DCEFE2;--vei:#8A5A2B;--vei-soft:#F3E7D6;
+  --sel:#6D3A96;--sel-soft:#EFE5F7;--ok:#237A4B;--ok-soft:#DFF3E7;--warn:#9A5B00;--warn-soft:#FDF0D9;
+  --display:"Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",Roboto,system-ui,sans-serif;
+  box-sizing:border-box;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1712;--paper:#16241C;--ink:#E6EFE8;--muted:#9FB3A5;--line:#2B3E33;
+    --art:#6FD199;--art-soft:#17301F;--vei:#D6A45F;--vei-soft:#2E2417;
+    --sel:#C99DEE;--sel-soft:#2E2140;--ok:#72D39C;--ok-soft:#173524;--warn:#F2B55B;--warn-soft:#3A2A12;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1712;--paper:#16241C;--ink:#E6EFE8;--muted:#9FB3A5;--line:#2B3E33;
+  --art:#6FD199;--art-soft:#17301F;--vei:#D6A45F;--vei-soft:#2E2417;
+  --sel:#C99DEE;--sel-soft:#2E2140;--ok:#72D39C;--ok-soft:#173524;--warn:#F2B55B;--warn-soft:#3A2A12;
+}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-text-size-adjust:100%;overflow:hidden;overscroll-behavior:none}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--sel);outline-offset:2px}
+
+/* Tela cheia: nada rola, tudo cabe */
+.app{height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.stage{position:relative;flex:1 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
+.fitbox{position:absolute;top:0;left:0;transform-origin:top left}
+.view{display:none}
+.view.on{display:block}
+
+/* Capa */
+.capa{background:var(--paper);border:2px solid var(--ink);border-radius:6px;padding:20px 24px;position:relative;overflow:hidden;font-size:1.2em}
+.brasao{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;margin-bottom:6px}
+.brasao img{flex:0 0 auto;width:86px;height:86px;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.capa h1{font-family:var(--display);font-weight:800;font-size:clamp(29px,5.8vw,41px);line-height:1.05;margin:0 0 4px;letter-spacing:-.01em}
+.capa .sub{margin:0;color:var(--muted)}
+/* Faixa da capa: a mata passa devagar e os tipos de relação se revezam. */
+.monitor{display:flex;align-items:center;gap:12px;margin:14px 0 8px;
+  background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+.folha{flex:0 0 auto;width:34px;height:34px;transform-origin:50% 92%;animation:balanca 3.8s ease-in-out infinite}
+@keyframes balanca{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+.mata{flex:1 1 auto;min-width:0;display:block;height:52px;overflow:hidden}
+.mata .andando{animation:mata-corre 30s linear infinite}
+@keyframes mata-corre{from{transform:translateX(0)}to{transform:translateX(-740px)}}
+.placar{flex:0 0 auto;text-align:right;line-height:1.15}
+.placar b{display:block;font-family:var(--display);font-size:16px;font-weight:800;color:var(--art);white-space:nowrap}
+.placar span{font-family:var(--display);font-size:20px;font-weight:800;color:var(--vei);letter-spacing:.12em}
+@media (max-width:560px){ .monitor{gap:9px;padding:7px 9px} .mata{height:44px} .placar b{font-size:14px} .placar span{font-size:17px} }
+.titulo-prova{font-family:var(--display);font-weight:700;font-size:clamp(26px,5.3vw,36px);margin:6px 0 14px;line-height:1.15;text-align:center}
+.ficha{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.ficha > div{padding:10px 0;border-bottom:1px solid var(--line)}
+.ficha > div:nth-child(odd){padding-right:12px}
+.ficha .k{display:block;font-size:17px;color:var(--muted)}
+.ficha .v{font-weight:700}
+.ficha .full{grid-column:1 / -1}
+.campo{margin-top:18px}
+.campo label,.campo .lbl{display:block;font-weight:700;margin-bottom:6px}
+.campo input{width:100%;padding:12px 14px;font:inherit;border:2px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+.campo input:disabled{opacity:.8}
+.salas{display:flex;flex-wrap:wrap;gap:8px}
+.salas button{border:2px solid var(--line);background:var(--bg);border-radius:6px;padding:8px 16px;font-weight:700;min-width:74px}
+.salas button[aria-pressed="true"]{border-color:var(--sel);background:var(--sel-soft);color:var(--sel)}
+.salas button:disabled{cursor:default}
+.instrucoes{margin-top:20px;background:var(--vei-soft);border-left:5px solid var(--vei);padding:12px 16px;border-radius:0 6px 6px 0}
+.instrucoes h2{font-family:var(--display);font-size:24px;margin:0 0 4px}
+.instrucoes ul{margin:0;padding-left:20px}
+.instrucoes li{margin:3px 0}
+.erro{color:var(--art);font-weight:700;min-height:1.5em;margin:10px 0 0}
+.btn{display:inline-block;border:none;border-radius:6px;padding:14px 22px;font-weight:700;font-size:18px;background:var(--art);color:#fff}
+.btn.sec{background:transparent;color:var(--ink);border:2px solid var(--line)}
+:root[data-theme="dark"] .btn:not(.sec){color:#07130c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn:not(.sec){color:#07130c}}
+.acoes{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+#acoesCapa{justify-content:flex-end}
+.capa .btn{font-size:21px;padding:15px 26px}
+
+/* Barra de progresso */
+.barra{flex:0 0 auto;background:var(--paper);border-bottom:2px solid var(--ink);display:none}
+.barra.on{display:block}
+.barra .in{max-width:820px;margin:0 auto;padding:8px 14px;display:flex;gap:12px;align-items:center;justify-content:space-between;font-size:15px}
+.barra .selo{flex:0 0 auto;width:30px;height:30px;border-radius:50%;opacity:.9}
+.barra .aluno{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1 1 auto}
+.barra .trilho{flex:0 0 32%;height:10px;background:var(--line);border-radius:5px;overflow:hidden}
+.barra .fill{height:100%;background:var(--art);width:0;transition:width .3s}
+.barra .cont{white-space:nowrap;color:var(--muted)}
+
+/* Faixa fina de rodapé */
+.navbar{flex:0 0 auto;background:var(--paper);border-top:1px solid var(--line);display:none}
+.navbar.on{display:block}
+.navbar .in{max-width:820px;margin:0 auto;padding:3px 14px;text-align:center}
+.navbar .meio{font-size:13px;line-height:1.5;color:var(--muted);white-space:nowrap}
+
+/* Botões de navegação, no pé da página */
+.navq{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:12px}
+.nbtn{border:2px solid var(--line);background:var(--bg);border-radius:6px;padding:10px 18px;font-weight:700;font-size:16px;white-space:nowrap}
+.nbtn.pri{border-color:var(--art);background:var(--art);color:#fff}
+:root[data-theme="dark"] .nbtn.pri{color:#07130c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .nbtn.pri{color:#07130c}}
+.nbtn:disabled{opacity:.35;cursor:default}
+
+/* Questões */
+.q{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 20px 16px;position:relative;display:none}
+.q.ativa{display:block}
+
+/* Virada de cubo entre as questões. As duas faces giram em torno do mesmo
+   eixo vertical, no centro do cubo — daí o z negativo na origem, que a
+   navegação ajusta para metade da largura do cartão. */
+#vProva{perspective:1600px;perspective-origin:50% 42%}
+#questoes{position:relative;transform-style:preserve-3d}
+.q.saindo{display:block;position:absolute;top:0;left:0;width:100%;z-index:2}
+.stage.virando{overflow:hidden}   /* a face que sai não faz surgir barra de rolagem */
+.q.saindo,.q.girando{backface-visibility:hidden;transform-origin:50% 50% var(--eixo,-320px)}
+@keyframes cubo-sai-f{from{transform:rotateY(0)}   to{transform:rotateY(-90deg)}}
+@keyframes cubo-ent-f{from{transform:rotateY(90deg)}  to{transform:rotateY(0)}}
+@keyframes cubo-sai-t{from{transform:rotateY(0)}   to{transform:rotateY(90deg)}}
+@keyframes cubo-ent-t{from{transform:rotateY(-90deg)} to{transform:rotateY(0)}}
+.frente .q.saindo {animation:cubo-sai-f .52s cubic-bezier(.62,.02,.35,1) both}
+.frente .q.girando{animation:cubo-ent-f .52s cubic-bezier(.62,.02,.35,1) both}
+.tras .q.saindo   {animation:cubo-sai-t .52s cubic-bezier(.62,.02,.35,1) both}
+.tras .q.girando  {animation:cubo-ent-t .52s cubic-bezier(.62,.02,.35,1) both}
+.marca{position:absolute;right:12px;bottom:10px;width:58px;height:58px;border-radius:50%;opacity:.12;pointer-events:none;user-select:none}
+.q.feita{border-left:5px solid var(--ok)}
+.q-cab{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.q-num{font-family:var(--display);font-weight:800;font-size:24px;line-height:1;color:var(--art);min-width:1.6em}
+.tag{font-size:13px;font-weight:700;border-radius:4px;padding:2px 8px;background:var(--sel-soft);color:var(--sel)}
+.valor{margin-left:auto;font-size:13px;color:var(--muted);white-space:nowrap}
+.q-texto{margin:0 0 14px;font-size:18px}
+.dica{font-size:15px;color:var(--muted);margin:-8px 0 12px}
+.limpar{border:none;background:none;color:var(--muted);text-decoration:underline;font-size:14px;padding:4px 0;margin-top:10px}
+
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:var(--bg);border:2px solid transparent;border-radius:6px;padding:11px 14px;margin:0 0 8px}
+.opt .let{flex:0 0 28px;height:28px;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;font-weight:700;font-size:15px;line-height:1}
+.opt.on{border-color:var(--sel);background:var(--sel-soft)}
+.opt.on .let{background:var(--sel);border-color:var(--sel);color:var(--paper)}
+
+
+
+/* Questão com vídeo: o vídeo à esquerda e as alternativas à direita */
+.video-caixa{display:flex;gap:18px;align-items:flex-start}
+.video-esq{flex:0 0 auto;width:340px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#000}
+.video-esq video{display:block;width:100%;height:auto;max-height:330px;background:#000}
+.video-dir{flex:1 1 auto;min-width:0}
+.video-dir .opt{margin-bottom:8px}
+@media (max-width:620px){
+  .video-caixa{flex-direction:column;align-items:stretch;gap:12px}
+  .video-esq{width:100%}
+}
+
+/* Círculos para marcar (várias respostas) */
+.bolhas{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:6px}
+.bolha{position:relative;width:124px;height:124px;border-radius:50%;padding:10px;
+  border:3px solid var(--c);background:var(--cs);color:var(--c);
+  font-weight:700;font-size:16.5px;line-height:1.2;text-align:center;
+  display:grid;place-items:center;transition:transform .12s}
+.bolha.on{background:var(--c);color:#fff;box-shadow:0 0 0 5px var(--cs);transform:scale(1.04)}
+.bolha .tick{position:absolute;top:6px;right:10px;font-size:20px;opacity:0}
+.bolha.on .tick{opacity:1}
+@media (max-width:560px){ .bolhas{gap:12px} .bolha{width:104px;height:104px;font-size:15px} }
+
+/* Alternativas em figura */
+.figs{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:4px}
+.opt.fig{flex-direction:column;align-items:center;gap:8px;padding:12px 8px;margin:0;border-color:var(--line)}
+.opt.fig .let{flex:0 0 auto;width:28px;height:28px}
+.fig-nome{font-size:13.5px;font-weight:700;line-height:1.25;color:var(--ink)}
+.opt.fig svg{width:100%;height:auto;max-width:120px;display:block}
+@media (max-width:560px){ .figs{grid-template-columns:repeat(3,1fr);gap:8px} .opt.fig{padding:9px 5px} }
+
+/* Ligar */
+.match{position:relative;display:grid;grid-template-columns:minmax(96px,32%) 1fr;gap:12px 48px}
+.match svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.col{display:flex;flex-direction:column;gap:10px;justify-content:space-around}
+.mbtn{border:2px solid var(--line);background:var(--bg);border-radius:6px;padding:10px 12px;text-align:left;font-size:16px;position:relative;z-index:1}
+.col.L .mbtn{font-weight:700;text-align:center}
+.mbtn.on{border-color:var(--sel);background:var(--sel-soft);box-shadow:0 0 0 3px var(--sel-soft)}
+
+/* Classificar / arrastar */
+.pool{min-height:58px;border:2px dashed var(--line);border-radius:6px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.pool .vazio{color:var(--muted);font-size:15px}
+.chip{border:2px solid var(--ink);background:var(--paper);border-radius:999px;padding:7px 14px;font-weight:700;font-size:15px;touch-action:manipulation}
+.chip.on{border-color:var(--sel);background:var(--sel);color:var(--paper)}
+.zonas{display:grid;gap:10px}
+.zonas.duas{grid-template-columns:1fr 1fr}
+.zona{border:2px solid var(--line);border-radius:6px;padding:10px;min-height:96px;background:var(--bg)}
+.zona.alvo{border-color:var(--sel);border-style:dashed}
+.zona.a{border-color:var(--art);background:var(--art-soft)}
+.zona.b{border-color:var(--vei);background:var(--vei-soft)}
+.zona h4{margin:0 0 8px;font-size:15px;line-height:1.35}
+.zona.a h4{color:var(--art)} .zona.b h4{color:var(--vei)}
+.zona .dentro{display:flex;flex-wrap:wrap;gap:6px}
+.zonas.um .zona{min-height:0;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+.zonas.um .zona h4{margin:0;font-weight:400;font-size:16px}
+.zonas.um .zona .dentro{min-width:150px;min-height:40px;border:2px dashed var(--line);border-radius:999px;justify-content:center;align-items:center;padding:2px}
+
+/* Ordenar */
+.ordem{display:flex;flex-direction:column;gap:8px}
+.obtn{display:flex;gap:12px;align-items:center;text-align:left;background:var(--bg);border:2px solid var(--line);border-radius:6px;padding:10px 12px}
+.obtn .n{flex:0 0 34px;height:34px;border-radius:50%;border:2px dashed var(--muted);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:18px}
+.obtn.on{border-color:var(--sel);background:var(--sel-soft)}
+.obtn.on .n{border-style:solid;border-color:var(--sel);background:var(--sel);color:var(--paper)}
+
+
+
+/* Lacunas */
+.texto-lac{font-size:18px;line-height:2.3;margin:0 0 12px}
+.blank{border:none;border-bottom:3px solid var(--muted);background:var(--bg);border-radius:4px 4px 0 0;padding:0 10px;min-width:110px;font-weight:700;line-height:1.6;color:var(--muted)}
+.blank.cheia{color:var(--sel);border-bottom-color:var(--sel)}
+.blank.on{background:var(--sel-soft);border-bottom-color:var(--sel);color:var(--sel)}
+.banco{display:flex;flex-wrap:wrap;gap:8px;padding:10px;border:2px dashed var(--line);border-radius:6px;min-height:58px;align-items:center}
+
+.travada .body{pointer-events:none}
+.travada .limpar{display:none}
+
+/* Gabarito comentado, depois da entrega */
+.correcao{margin-top:14px;border-radius:6px;padding:12px 14px;font-size:16px;border-left:5px solid}
+.correcao.certa  {background:var(--ok-soft);  border-color:var(--ok)}
+.correcao.parcial{background:var(--warn-soft);border-color:var(--warn)}
+.correcao.errada {background:var(--art-soft); border-color:var(--art)}
+.correcao p{margin:0 0 6px}
+.correcao p:last-child{margin-bottom:0}
+.correcao .veredito{font-weight:700}
+.correcao.certa .veredito{color:var(--ok)}
+.correcao.parcial .veredito{color:var(--warn)}
+.correcao.errada .veredito{color:var(--art)}
+.correcao .rot{font-weight:700}
+.correcao .lista{margin:4px 0 0;padding-left:20px}
+.correcao .lista li{margin:2px 0}
+.correcao .fig-mini{display:inline-block;vertical-align:middle;width:46px}
+.correcao .fig-mini svg{width:100%;height:auto;display:block}
+
+/* Resultado */
+#resultado{background:var(--paper);border:2px solid var(--ink);border-radius:6px;padding:22px;position:relative;overflow:hidden;text-align:center}
+#resultado h2{font-family:var(--display);font-size:26px;margin:0}
+#resultado .selo-fim{width:62px;height:62px;border-radius:50%;margin:0 auto 8px;display:block;opacity:.92}
+.nota{font-family:var(--display);font-weight:800;font-size:clamp(64px,16vw,96px);line-height:1;color:var(--art);margin:10px 0 2px}
+.nota small{font-size:.35em;color:var(--muted);font-weight:700}
+.res-info{color:var(--muted);margin:0 0 16px}
+.grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px}
+.grade div{border-radius:4px;padding:6px 10px;font-size:15px;display:flex;justify-content:space-between;gap:6px}
+.grade .c{background:var(--ok-soft);color:var(--ok)}
+.grade .p{background:var(--warn-soft);color:var(--warn)}
+.grade .e{background:var(--art-soft);color:var(--art)}
+.aviso-final{margin:16px 0 0;font-size:15px;color:var(--muted)}
+.recado{margin:0 0 14px;font-size:17px;font-weight:700;line-height:1.35;border-radius:6px;padding:10px 14px}
+.recado.boa{background:var(--ok-soft);color:var(--ok)}
+.recado.anima{background:var(--vei-soft);color:var(--vei)}
+.acoes-fim{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.envio{margin:14px 0 0;font-size:15px;font-weight:700;color:var(--muted)}
+.envio.ok{color:var(--ok)}
+.envio.falhou{color:var(--warn);font-weight:400}
+#reenviar{margin-top:10px}
+
+.modal{position:fixed;inset:0;background:rgba(10,14,22,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+.modal.on{display:flex}
+.modal .box{background:var(--paper);border-radius:8px;padding:22px;max-width:440px;width:100%;border:2px solid var(--ink)}
+.modal h3{font-family:var(--display);font-size:22px;margin:0 0 8px}
+.modal p{margin:0 0 16px}
+
+@media (max-width:560px){
+  body{font-size:16px}
+  .capa{padding:18px 16px}
+  .brasao img{width:62px;height:62px}
+  .q{padding:14px 14px}
+  .marca{width:44px;height:44px}
+  .q-texto{font-size:17px}
+  .ficha{grid-template-columns:1fr}
+  .ficha > div:nth-child(odd){padding-right:0}
+  .zonas.duas{grid-template-columns:1fr}
+  .match{gap:10px 28px;grid-template-columns:minmax(80px,30%) 1fr}
+  .mbtn{font-size:14.5px;padding:8px 9px}
+  .zonas.um .zona{grid-template-columns:1fr}
+  .zonas.um .zona .dentro{min-width:0}
+  .barra .trilho{flex-basis:28%}
+}
+@media (prefers-reduced-motion:reduce){
+  .mata .andando,.folha{animation:none}
+  .q.saindo,.q.girando{animation:none!important}
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+<div class="barra" id="barra"><div class="in">
+  <img class="selo" src="icons/icon-192.png" alt="" aria-hidden="true">
+  <span class="aluno" id="barraAluno"></span>
+  <div class="trilho" aria-hidden="true"><div class="fill" id="barraFill"></div></div>
+  <span class="cont" id="barraCont">0 de 20</span>
+</div></div>
+
+<div class="stage" id="stage"><div class="fitbox" id="fitbox">
+
+  <section class="capa view on" id="vCapa" aria-labelledby="escola">
+    <div class="brasao">
+      <img src="icons/icon-512.png" alt="Brasão da Escola Estadual Feliz Lusitânia">
+      <div>
+        <h1 id="escola">Escola Estadual “Feliz Lusitânia”</h1>
+        <p class="sub">Diretora: Carla Nilce<br>Professor: Amauri Junior</p>
+      </div>
+    </div>
+    <div class="monitor" role="img" aria-label="Faixa com uma mata e os tipos de relação ecológica">
+      <svg class="folha" viewBox="0 0 34 34" aria-hidden="true">
+        <path d="M17 33 L17 17" stroke="#7A5230" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M17 18 C17 6,27 1,32 2 C33 11,26 19,17 18 Z" fill="#2E7D4F"/>
+        <path d="M17 22 C17 12,9 7,3 8 C2 16,8 23,17 22 Z" fill="#3F9455"/>
+      </svg>
+      <svg class="mata" viewBox="0 0 740 56" preserveAspectRatio="none" aria-hidden="true">
+        <g class="andando"><g class="arvores"><path d="M0 50 H740" stroke="#8A5A2B" stroke-width="3"/><g transform="translate(40 0)"><rect x="-2.5" y="35" width="5" height="15" fill="#7A5230"/><circle cx="0" cy="22.5" r="15" fill="#2F7D46"/></g><g transform="translate(110 0)"><rect x="-2.5" y="39" width="5" height="11" fill="#7A5230"/><circle cx="0" cy="29.3" r="11" fill="#3F9455"/></g><g transform="translate(186 0)"><rect x="-2.5" y="33" width="5" height="17" fill="#7A5230"/><circle cx="0" cy="19.1" r="17" fill="#26683A"/></g><g transform="translate(268 0)"><rect x="-2.5" y="38" width="5" height="12" fill="#7A5230"/><circle cx="0" cy="27.6" r="12" fill="#4AA060"/></g><g transform="translate(350 0)"><rect x="-2.5" y="36" width="5" height="14" fill="#7A5230"/><circle cx="0" cy="24.2" r="14" fill="#2F7D46"/></g><g transform="translate(430 0)"><rect x="-2.5" y="40" width="5" height="10" fill="#7A5230"/><circle cx="0" cy="31" r="10" fill="#3F9455"/></g><g transform="translate(506 0)"><rect x="-2.5" y="34" width="5" height="16" fill="#7A5230"/><circle cx="0" cy="20.8" r="16" fill="#26683A"/></g><g transform="translate(590 0)"><rect x="-2.5" y="38" width="5" height="12" fill="#7A5230"/><circle cx="0" cy="27.6" r="12" fill="#4AA060"/></g><g transform="translate(668 0)"><rect x="-2.5" y="36" width="5" height="14" fill="#7A5230"/><circle cx="0" cy="24.2" r="14" fill="#2F7D46"/></g><g transform="translate(722 0)"><rect x="-2.5" y="40" width="5" height="10" fill="#7A5230"/><circle cx="0" cy="31" r="10" fill="#3F9455"/></g><path d="M70 50 C61 44,65 38,70 38 C75 38,79 44,70 50 Z" fill="#4AA060"/><path d="M150 50 C141 44,145 38,150 38 C155 38,159 44,150 50 Z" fill="#3F9455"/><path d="M228 50 C219 44,223 38,228 38 C233 38,237 44,228 50 Z" fill="#4AA060"/><path d="M310 50 C301 44,305 38,310 38 C315 38,319 44,310 50 Z" fill="#3F9455"/><path d="M392 50 C383 44,387 38,392 38 C397 38,401 44,392 50 Z" fill="#4AA060"/><path d="M470 50 C461 44,465 38,470 38 C475 38,479 44,470 50 Z" fill="#3F9455"/><path d="M550 50 C541 44,545 38,550 38 C555 38,559 44,550 50 Z" fill="#4AA060"/><path d="M630 50 C621 44,625 38,630 38 C635 38,639 44,630 50 Z" fill="#3F9455"/><path d="M700 50 C691 44,695 38,700 38 C705 38,709 44,700 50 Z" fill="#4AA060"/><path d="M250 14 q5 -4 10 0 q5 -4 10 0" fill="none" stroke="#586B5E" stroke-width="2" stroke-linecap="round"/><path d="M520 10 q5 -4 10 0 q5 -4 10 0" fill="none" stroke="#586B5E" stroke-width="2" stroke-linecap="round"/></g><g transform="translate(740 0)"><g class="arvores"><path d="M0 50 H740" stroke="#8A5A2B" stroke-width="3"/><g transform="translate(40 0)"><rect x="-2.5" y="35" width="5" height="15" fill="#7A5230"/><circle cx="0" cy="22.5" r="15" fill="#2F7D46"/></g><g transform="translate(110 0)"><rect x="-2.5" y="39" width="5" height="11" fill="#7A5230"/><circle cx="0" cy="29.3" r="11" fill="#3F9455"/></g><g transform="translate(186 0)"><rect x="-2.5" y="33" width="5" height="17" fill="#7A5230"/><circle cx="0" cy="19.1" r="17" fill="#26683A"/></g><g transform="translate(268 0)"><rect x="-2.5" y="38" width="5" height="12" fill="#7A5230"/><circle cx="0" cy="27.6" r="12" fill="#4AA060"/></g><g transform="translate(350 0)"><rect x="-2.5" y="36" width="5" height="14" fill="#7A5230"/><circle cx="0" cy="24.2" r="14" fill="#2F7D46"/></g><g transform="translate(430 0)"><rect x="-2.5" y="40" width="5" height="10" fill="#7A5230"/><circle cx="0" cy="31" r="10" fill="#3F9455"/></g><g transform="translate(506 0)"><rect x="-2.5" y="34" width="5" height="16" fill="#7A5230"/><circle cx="0" cy="20.8" r="16" fill="#26683A"/></g><g transform="translate(590 0)"><rect x="-2.5" y="38" width="5" height="12" fill="#7A5230"/><circle cx="0" cy="27.6" r="12" fill="#4AA060"/></g><g transform="translate(668 0)"><rect x="-2.5" y="36" width="5" height="14" fill="#7A5230"/><circle cx="0" cy="24.2" r="14" fill="#2F7D46"/></g><g transform="translate(722 0)"><rect x="-2.5" y="40" width="5" height="10" fill="#7A5230"/><circle cx="0" cy="31" r="10" fill="#3F9455"/></g><path d="M70 50 C61 44,65 38,70 38 C75 38,79 44,70 50 Z" fill="#4AA060"/><path d="M150 50 C141 44,145 38,150 38 C155 38,159 44,150 50 Z" fill="#3F9455"/><path d="M228 50 C219 44,223 38,228 38 C233 38,237 44,228 50 Z" fill="#4AA060"/><path d="M310 50 C301 44,305 38,310 38 C315 38,319 44,310 50 Z" fill="#3F9455"/><path d="M392 50 C383 44,387 38,392 38 C397 38,401 44,392 50 Z" fill="#4AA060"/><path d="M470 50 C461 44,465 38,470 38 C475 38,479 44,470 50 Z" fill="#3F9455"/><path d="M550 50 C541 44,545 38,550 38 C555 38,559 44,550 50 Z" fill="#4AA060"/><path d="M630 50 C621 44,625 38,630 38 C635 38,639 44,630 50 Z" fill="#3F9455"/><path d="M700 50 C691 44,695 38,700 38 C705 38,709 44,700 50 Z" fill="#4AA060"/><path d="M250 14 q5 -4 10 0 q5 -4 10 0" fill="none" stroke="#586B5E" stroke-width="2" stroke-linecap="round"/><path d="M520 10 q5 -4 10 0 q5 -4 10 0" fill="none" stroke="#586B5E" stroke-width="2" stroke-linecap="round"/></g></g></g>
+      </svg>
+      <div class="placar"><b id="relNome">Protocooperação</b><span id="relSinal">+ +</span></div>
+    </div>
+    <p class="titulo-prova">3ª Avaliação de Ciências<br>Relações ecológicas</p>
+
+    <div class="ficha">
+      <div><span class="k">Valor</span><span class="v">10,0 pontos</span></div>
+      <div><span class="k">Nota</span><span class="v" id="notaCapa">—</span></div>
+    </div>
+
+    <div class="campo">
+      <label for="nome">Nome completo</label>
+      <input id="nome" type="text" autocomplete="name" placeholder="Digite seu nome completo">
+    </div>
+    <div class="campo">
+      <span class="lbl" id="salaLbl">Sala</span>
+      <div class="salas" role="group" aria-labelledby="salaLbl" id="salas"></div>
+    </div>
+
+    <div class="instrucoes">
+      <h2>Antes de começar</h2>
+      <ul>
+        <li>A prova tem 20 questões. Cada uma vale 0,5 ponto.</li>
+        <li>Nas questões de múltipla escolha, toque na alternativa correta.</li>
+        <li>Algumas questões são interativas: você vai tocar, arrastar, ligar, ordenar ou completar. Nelas, cada parte certa vale uma parte da nota.</li>
+        <li>Revise tudo antes de entregar. Depois da entrega, as respostas não podem ser mudadas.</li>
+      </ul>
+    </div>
+    <p class="erro" id="erroCapa" role="alert"></p>
+    <div class="acoes" id="acoesCapa"><button class="btn" id="comecar">Começar a prova</button></div>
+  </section>
+
+  <div class="view" id="vProva" aria-label="Questões">
+    <div id="questoes"></div>
+    <div class="navq">
+      <button class="nbtn" id="ant">◀ Voltar</button>
+      <button class="nbtn pri" id="prox">Avançar ▶</button>
+    </div>
+  </div>
+
+  <section class="view" id="vFim"><div id="resultado" aria-live="polite"></div></section>
+
+</div></div>
+
+<div class="navbar" id="navbar"><div class="in">
+  <span class="meio" id="navMeio"></span>
+</div></div>
+
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalT">
+  <div class="box">
+    <h3 id="modalT"></h3>
+    <p id="modalP"></p>
+    <div class="acoes">
+      <button class="btn" id="modalOk">Entregar</button>
+      <button class="btn sec" id="modalVolta">Voltar e revisar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+const KEY = 'prova-ciencias-relacoes-ecologicas-v1';
+const VERSOES = 4;
+const SALAS = ['601M','602M','603M'];
+const VAL = 0.5;
+
+/* ============================================================
+   A NOTA CHEGA AO PROFESSOR
+
+   Quando o aluno entrega, a prova manda o resultado para o mesmo
+   FORMULÁRIO GOOGLE que o app de Ligações Químicas já usa — as notas
+   caem naquela planilha, sem criar nada novo. Esta prova se distingue
+   das outras pela coluna Turma (601M, 602M, 603M) e pelo começo do campo
+   Detalhe, que traz o nome da prova.
+
+   Para desligar o envio, ponha 'ativo: false'.
+   ============================================================ */
+const ENVIO = {
+  ativo: true,
+  url: 'https://docs.google.com/forms/d/e/' +
+       '1FAIpQLSerpi9JTqpfRMGlgOuP2gWS7B2oMsIeIt3Adm7aCk_B2Cu6Hw/formResponse',
+  campos: {
+    nome:    'entry.1743318295',
+    turma:   'entry.1351245089',
+    turno:   'entry.191858940',
+    nota:    'entry.2016560989',
+    acertos: 'entry.780945658',
+    detalhe: 'entry.252197904'
+  }
+};
+const PROVA = 'Relações ecológicas';
+
+/* Som do comprovante de nota, o mesmo da prova do aparelho digestório.
+   O navegador só libera áudio depois de um toque do aluno: tocar e pausar
+   no "Começar a prova" destrava o som para o fim. */
+const som = new Audio('audios/statistics.mp3');
+som.preload = 'auto';
+som.volume = 0.85;
+function prepararSom(){
+  const p = som.play();
+  if(p && p.then) p.then(()=>{ som.pause(); som.currentTime = 0; }).catch(()=>{});
+}
+function tocarResultado(){
+  try{ som.currentTime = 0; const p = som.play(); if(p && p.catch) p.catch(()=>{}); }catch(e){}
+}
+
+const FRASES_PARABENS = [
+  'Parabéns! Você mostrou que estudou as relações ecológicas.',
+  'Muito bem! Seu esforço apareceu no resultado.',
+  'Excelente trabalho! Você dominou o conteúdo.',
+  'Parabéns pelo resultado! Continue estudando assim.'
+];
+const FRASES_ANIMO = [
+  'Não desanime: agora você sabe exatamente o que revisar. Confira o gabarito questão por questão.',
+  'Todo mundo tem dias assim. Veja a correção com calma: cada erro de hoje é um ponto a mais na próxima.',
+  'Você chegou até o fim, e isso já conta. Leia as explicações e volte mais forte.',
+  'Uma nota não define você. Use o gabarito para entender cada questão e peça ajuda no que ficou difícil.'
+];
+
+
+
+const BASE = [
+ {id:1,type:'mc',video:'videos/competicao_interespecifica.mp4',tag:'Vídeo',
+  por:'São espécies diferentes — uma ave e uma serpente —, então a competição é interespecífica. E ninguém está tentando comer o outro: os dois disputam o mesmo espaço, e os dois saem perdendo, gastando energia e correndo risco de se ferir. É por isso que a competição é desarmônica para os dois lados.',
+  text:'Veja o vídeo ao lado. Uma serpente ocupou o oco de árvore onde o pica-pau tinha feito seu ninho. O pica-pau volta, encontra o invasor e passa a bicá-lo sem parar, tentando recuperar o território; a serpente resiste e revida. Os dois gastam energia e correm risco de se machucar na disputa pelo mesmo lugar. Essa relação é:',
+  hint:'O vídeo começa sozinho e repete. Use os controles se quiser rever.',
+  opts:['competição interespecífica.','competição intraespecífica.','predação.','inquilinismo.'],ans:0},
+ {id:2,type:'multi',tag:'Marcar',por:'Desarmônica é quando alguém se dá mal. Na predação a presa morre; no parasitismo o hospedeiro é prejudicado; na competição os dois perdem. No mutualismo e no inquilinismo ninguém sai prejudicado.',
+  text:'Marque todas as relações <b>desarmônicas</b>, aquelas em que pelo menos um dos envolvidos sai prejudicado. <b>(pode marcar mais de uma)</b>',
+  hint:'Toque em cada círculo que você quiser marcar. Toque de novo para desmarcar.',
+  items:[{id:'pred',t:'Predação',    cor:'#C62839', soft:'#FBE3E6', ok:true},
+         {id:'mutu',t:'Mutualismo',  cor:'#237A4B', soft:'#DFF3E7', ok:false},
+         {id:'para',t:'Parasitismo', cor:'#8A4B9C', soft:'#F0E5F7', ok:true},
+         {id:'comp',t:'Competição',  cor:'#B4531A', soft:'#FCEBDD', ok:true},
+         {id:'inqu',t:'Inquilinismo',cor:'#2455B0', soft:'#E2EBFA', ok:false}]},
+
+ {id:3,type:'match',tag:'Ligar',por:'Nas duas primeiras os dois ganham; o que separa uma da outra é a obrigatoriedade. No inquilinismo só um ganha, sem prejudicar o outro. Na competição os dois perdem.',
+  text:'Ligue cada relação ao que acontece com os seres vivos envolvidos.',
+  hint:'Toque em uma relação e depois na descrição. Para desfazer uma ligação, toque na descrição.',
+  left:[{id:'pro',t:'Protocooperação'},{id:'mut',t:'Mutualismo'},{id:'inq',t:'Inquilinismo'},{id:'com',t:'Competição'}],
+  right:[{id:'inq',t:'Um ganha moradia ou apoio, e o outro não ganha nem perde nada.'},
+         {id:'com',t:'Os dois saem prejudicados, porque disputam o mesmo recurso.'},
+         {id:'pro',t:'Os dois ganham, mas conseguem viver separados: a relação não é obrigatória.'},
+         {id:'mut',t:'Os dois ganham e não sobrevivem separados: a relação é obrigatória.'}]},
+
+ {id:4,type:'mc',figs:true,tag:'Tocar',por:'No parasitismo o parasita vive às custas do hospedeiro e o prejudica, como o carrapato que suga o sangue do animal. Nas outras imagens ninguém é prejudicado, ou a relação é de predação.',
+  text:'Qual destas imagens representa uma relação de <b>parasitismo</b>?',
+  hint:'Toque na figura que você escolher.',
+  opts:[
+   /* a - planta carnívora com inseto (predação) */
+   {nome:"Planta carnívora e inseto", svg:`<svg viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M50 94 L50 64" stroke="#3C7A2E" stroke-width="5" stroke-linecap="round"/>
+      <path d="M50 64 C32 62,19 46,26 31 C41 36,48 49,50 64 Z" fill="#C8324B" stroke="#7A1830" stroke-width="2"/>
+      <path d="M50 64 C68 62,81 46,74 31 C59 36,52 49,50 64 Z" fill="#DE4A62" stroke="#7A1830" stroke-width="2"/>
+      <g stroke="#7A1830" stroke-width="2" stroke-linecap="round">
+        <path d="M27 32 L21 23"/><path d="M34 29 L31 19"/><path d="M42 31 L41 21"/>
+        <path d="M73 32 L79 23"/><path d="M66 29 L69 19"/><path d="M58 31 L59 21"/></g>
+      <ellipse cx="50" cy="15" rx="6" ry="4" fill="#3B3B45"/>
+      <path d="M45 12 C40 6,50 5,50 11 Z" fill="#9AA6C4" opacity=".85"/>
+      <path d="M55 12 C60 6,50 5,50 11 Z" fill="#9AA6C4" opacity=".85"/>
+    </svg>`},
+   /* b - carrapato nos pelos (parasitismo) */
+   {nome:"Carrapato e boi", svg:`<svg viewBox="0 0 100 100" aria-hidden="true">
+      <g stroke="#A97C4A" stroke-width="2.5" stroke-linecap="round" fill="none" opacity=".85">
+        <path d="M6 90 C26 62,36 42,44 12"/><path d="M24 94 C44 66,54 46,62 16"/>
+        <path d="M42 96 C60 70,70 48,78 20"/><path d="M60 96 C76 72,86 52,94 28"/></g>
+      <g transform="translate(50 58) rotate(-28)">
+        <ellipse rx="17" ry="12" fill="#5A3A22" stroke="#33200F" stroke-width="2"/>
+        <ellipse cx="-14" cy="0" rx="6" ry="5" fill="#33200F"/>
+        <g stroke="#33200F" stroke-width="2.2" stroke-linecap="round">
+          <path d="M-8 -10 L-13 -19"/><path d="M0 -12 L-1 -22"/><path d="M8 -10 L12 -19"/>
+          <path d="M-8 10 L-13 19"/><path d="M0 12 L-1 22"/><path d="M8 10 L12 19"/></g>
+        <ellipse cx="4" cy="-3" rx="6" ry="4" fill="#7A5230" opacity=".7"/></g>
+    </svg>`},
+   /* c - liquens na pedra (mutualismo) */
+   {nome:"Fungo e alga", svg:`<svg viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M8 84 C10 62,24 50,44 48 C64 46,85 56,91 75 C93 83,89 89,81 89 L16 89 C10 89,8 88,8 84 Z" fill="#9AA3AE" stroke="#6B747F" stroke-width="2"/>
+      <g fill="#7FB069"><circle cx="30" cy="66" r="9"/><circle cx="45" cy="73" r="6"/><circle cx="59" cy="64" r="8"/><circle cx="71" cy="75" r="5.5"/></g>
+      <g fill="#CBDFA8"><circle cx="30" cy="66" r="4.5"/><circle cx="59" cy="64" r="4"/><circle cx="45" cy="73" r="2.6"/></g>
+    </svg>`},
+   /* d - bromélia no galho (inquilinismo) */
+   {nome:"Bromélia e árvore", svg:`<svg viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M4 76 C30 68,60 63,96 56" stroke="#8A5A2B" stroke-width="11" fill="none" stroke-linecap="round"/>
+      <path d="M32 71 L18 57" stroke="#8A5A2B" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <g transform="translate(56 58)" fill="#3F8F4A" stroke="#2C6633" stroke-width="1.5">
+        <path d="M0 0 C-7 -13,-23 -19,-27 -13 C-21 -3,-8 2,0 0 Z"/>
+        <path d="M0 0 C7 -13,23 -19,27 -13 C21 -3,8 2,0 0 Z"/>
+        <path d="M0 0 C-11 -12,-17 -27,-25 -25 C-23 -13,-11 -2,0 0 Z"/>
+        <path d="M0 0 C11 -12,17 -27,25 -25 C23 -13,11 -2,0 0 Z"/>
+        <path d="M0 0 C-4 -18,-9 -31,-1 -35 C7 -29,4 -15,0 0 Z"/></g>
+      <ellipse cx="56" cy="50" rx="4.5" ry="8" fill="#C8324B" stroke="#8E1F33" stroke-width="1.2"/>
+    </svg>`},
+   /* e - peixe-palhaço e anêmona (mutualismo) */
+   {nome:"Peixe-palhaço e anêmona", svg:`<svg viewBox="0 0 100 100" aria-hidden="true">
+      <g stroke="#D98CA6" stroke-width="5" stroke-linecap="round" fill="none">
+        <path d="M50 88 C36 76,28 62,30 48"/><path d="M50 88 C42 74,38 58,42 44"/>
+        <path d="M50 88 C50 72,50 58,50 42"/><path d="M50 88 C58 74,62 58,58 44"/>
+        <path d="M50 88 C64 76,72 62,70 48"/><path d="M50 88 C32 78,22 70,20 58"/>
+        <path d="M50 88 C68 78,78 70,80 58"/></g>
+      <ellipse cx="50" cy="89" rx="27" ry="8" fill="#B55E7E"/>
+      <g transform="translate(56 64) rotate(-12)">
+        <path d="M0 0 C8 -9,22 -9,28 0 C22 9,8 9,0 0 Z" fill="#F07B22" stroke="#B4551A" stroke-width="1.5"/>
+        <path d="M0 0 L-9 -7 L-9 7 Z" fill="#F07B22" stroke="#B4551A" stroke-width="1.5"/>
+        <path d="M10 -7 L13 7" stroke="#fff" stroke-width="4"/>
+        <circle cx="23" cy="-2" r="2.2" fill="#2A1A10"/></g>
+    </svg>`}],
+  ans:1,
+  vars:[{},
+        {text:'Qual destas imagens representa uma relação de <b>inquilinismo</b>?', ans:3,
+         por:'No inquilinismo um ser vivo usa o outro apenas como moradia ou apoio, sem prejudicá-lo: é o caso da bromélia sobre o galho, que só aproveita o lugar e a luz.'},
+        {text:'Qual destas imagens representa uma relação de <b>predação</b>?', ans:0,
+         por:'Na predação um ser vivo captura o outro para se alimentar. A planta carnívora é um predador inusitado: ela fecha as folhas sobre o inseto e o digere.'},
+        {}]},
+
+ {id:5,type:'mc',video:'videos/protocooperacao.mp4',tag:'Vídeo',
+  por:'Os dois ganham: o paguro ganha a defesa dos tentáculos urticantes e a anêmona ganha carona e restos de comida. E como conseguem viver separados, é protocooperação — no mutualismo nenhum dos dois sobreviveria sozinho.',
+  text:'Veja o vídeo ao lado. O paguro (ermitão) carrega uma anêmona-do-mar presa à concha em que mora. Quando a lula tenta atacá-lo, ele vira a anêmona contra o predador, e os tentáculos que ardem afastam o ataque. Em troca, a anêmona ganha carona para novos lugares e aproveita restos da comida do paguro. Os dois conseguem viver separados. Essa relação é:',
+  hint:'O vídeo começa sozinho e repete. Use os controles se quiser rever.',
+  opts:['protocooperação.','mutualismo.','comensalismo.','parasitismo.'],ans:0},
+ {id:6,type:'sort',tag:'Arrastar',por:'A pergunta é sempre a mesma: alguém saiu perdendo? O boi perde sangue, a zebra perde a vida e um dos pica-paus perde o oco. Já o fungo e a alga, a orquídea e a hiena não prejudicam ninguém.',
+  text:'Classifique cada exemplo conforme o resultado da relação.',
+  hint:'Toque em um exemplo e depois na caixa certa. No computador, você também pode arrastar.',
+  items:[{id:'carr',t:'Carrapato no boi'},{id:'liq',t:'Liquens: fungo e alga'},
+         {id:'leao',t:'Leão caçando a zebra'},{id:'orq',t:'Orquídea sobre o tronco'},
+         {id:'pica',t:'Dois pica-paus disputando o mesmo oco'},{id:'hie',t:'Hiena comendo os restos da caça do leão'}],
+  zones:[{id:'h',t:'Harmônica: ninguém é prejudicado',cls:'a'},
+         {id:'d',t:'Desarmônica: alguém é prejudicado',cls:'b'}],
+  correct:{carr:'d',liq:'h',leao:'d',orq:'h',pica:'d',hie:'h'}},
+
+ {id:7,type:'mc',por:'Os dois ganham e a relação é obrigatória: isso é mutualismo. O líquen é o exemplo clássico, e é por isso que ele costuma ser tratado como um único ser vivo.',
+  text:'Os liquens são formados por fungos e algas vivendo juntos: o fungo dá proteção e água para a alga, e a alga faz fotossíntese e alimenta o fungo. Separados, eles não sobrevivem. Essa relação é:',
+  opts:['mutualismo.','protocooperação.','inquilinismo.','predação.'],ans:0},
+
+ {id:8,type:'mc',por:'Nas duas os dois ganham. O que separa uma da outra é a obrigatoriedade: no mutualismo a vida de um depende do outro.',
+  text:'Qual é a diferença entre protocooperação e mutualismo?',
+  opts:['Na protocooperação os dois ganham e podem viver separados; no mutualismo os dois ganham, mas não sobrevivem separados.',
+        'Na protocooperação apenas um ganha; no mutualismo os dois ganham.',
+        'Na protocooperação os dois perdem; no mutualismo os dois ganham.',
+        'Não há diferença: os dois nomes querem dizer a mesma coisa.'],ans:0},
+
+ {id:9,type:'mc',por:'A planta usa a árvore apenas como apoio e moradia: uma ganha e a outra não ganha nem perde. Se tirasse alimento da árvore, seria parasitismo, como faz a erva-de-passarinho.',
+  text:'Orquídeas e bromélias crescem sobre os troncos das árvores para receber mais luz, sem tirar alimento delas e sem causar prejuízo. Essa relação é:',
+  opts:['inquilinismo.','parasitismo.','mutualismo.','competição.'],ans:0},
+
+ {id:10,type:'mc',por:'Comensalismo é comer os restos deixados por outro: um ganha alimento e o outro não é prejudicado, porque já tinha se alimentado.',
+  text:'A hiena chega depois da caçada e se alimenta dos restos deixados pelo leão, sem atrapalhá-lo. Essa relação é:',
+  opts:['comensalismo.','predação.','competição.','mutualismo.'],ans:0},
+
+ {id:11,type:'sort',single:true,tag:'Arrastar',por:'Peixe-palhaço e anêmona dependem um do outro (mutualismo). Ave-palito e jacaré ganham os dois, mas vivem separados (protocooperação). A bromélia só usa o galho (inquilinismo). A pulga prejudica o cão (parasitismo).',
+  text:'Leve cada exemplo até o nome da relação que ele representa.',
+  hint:'Toque em um exemplo e depois no espaço ao lado da relação. No computador, você também pode arrastar.',
+  items:[{id:'mut',t:'Peixe-palhaço e anêmona-do-mar'},{id:'pro',t:'Ave-palito limpando os dentes do jacaré'},
+         {id:'inq',t:'Bromélia sobre o galho da árvore'},{id:'par',t:'Pulga no pelo do cachorro'}],
+  zones:[{id:'pro',t:'Protocooperação'},{id:'par',t:'Parasitismo'},{id:'mut',t:'Mutualismo'},{id:'inq',t:'Inquilinismo'}],
+  correct:{mut:'mut',pro:'pro',inq:'inq',par:'par'}},
+
+ {id:12,type:'mc',por:'Predador é o que caça; presa é o que é caçado. No parasitismo os nomes são outros — parasita e hospedeiro — e o parasita costuma não matar quem o abriga.',
+  text:'Uma onça persegue e captura uma capivara para se alimentar. Nessa relação, a onça e a capivara são, respectivamente:',
+  opts:['o predador e a presa.','a presa e o predador.','o parasita e o hospedeiro.','o hospedeiro e o parasita.'],ans:0,
+  vars:[{},
+        {text:'Um gavião mergulha e captura uma cobra para se alimentar. Nessa relação, o gavião e a cobra são, respectivamente:'},
+        {text:'Um tubarão persegue e captura um peixe menor para se alimentar. Nessa relação, o tubarão e o peixe menor são, respectivamente:'},
+        {}]},
+
+ {id:13,type:'order',tag:'Ordenar',por:'Esse é o caminho da seleção natural descrita por Charles Darwin: o ambiente vai "escolhendo" quem sobrevive, e a espécie inteira vai ficando mais bem adaptada.',
+  text:'O predador geralmente captura o animal mais fraco do bando. Coloque em ordem o que acontece por causa disso, ao longo do tempo.',
+  hint:'Toque nas etapas na ordem certa. Toque de novo em uma etapa para tirar o número dela.',
+  items:[{id:'e2',t:'Os mais fracos são capturados com mais facilidade.'},
+         {id:'e4',t:'Com o tempo, a espécie passa a ser formada pelos indivíduos mais bem adaptados.'},
+         {id:'e1',t:'O predador escolhe a presa mais fraca ou mais doente do bando.'},
+         {id:'e3',t:'Os mais fortes sobrevivem e deixam descendentes.'}],
+  correct:['e1','e2','e3','e4']},
+
+ {id:14,type:'mc',por:'Endo quer dizer dentro e exo quer dizer fora. A lombriga vive dentro do corpo do hospedeiro; o carrapato, do lado de fora.',
+  text:'A lombriga vive dentro do intestino humano e o carrapato vive preso à pele do boi. Esses dois parasitas são chamados, respectivamente, de:',
+  opts:['endoparasita e exoparasita.','exoparasita e endoparasita.','hospedeiro e parasita.','predador e presa.'],ans:0},
+
+ {id:15,type:'blanks',tag:'Completar',por:'O parasita ganha e o hospedeiro perde. E a posição no corpo dá o nome: dentro é endoparasita, fora é exoparasita.',
+  text:'Complete o texto sobre o parasitismo.',
+  hint:'Toque em uma palavra do banco para preencher a próxima lacuna, ou toque antes na lacuna que quer preencher. Toque em uma lacuna preenchida para esvaziá-la.',
+  parts:['No parasitismo, o ser vivo que se aproveita do outro é chamado de ',0,', e o que é prejudicado é o ',1,'. Quando o parasita vive dentro do corpo, como a lombriga, ele é um ',2,'. Quando vive do lado de fora, como o piolho, é um ',3,'.'],
+  answers:['parasita','hospedeiro','endoparasita','exoparasita'],
+  bank:['hospedeiro','predador','endoparasita','parasita','exoparasita','presa']},
+
+ {id:16,type:'mc',video:'videos/erva_daninha.mp4',tag:'Vídeo',
+  hint:'O vídeo começa sozinho e repete. Use os controles se quiser rever.',
+  por:'Ela não usa o galho apenas como apoio: retira alimento da planta e a enfraquece. Por isso é parasitismo, e não inquilinismo como a orquídea.',
+  text:'A erva-de-passarinho cresce sobre os galhos de outras plantas e retira delas a água e os nutrientes de que precisa, deixando a planta hospedeira enfraquecida. Essa relação é:',
+  opts:['parasitismo.','inquilinismo.','comensalismo.','mutualismo.'],ans:0},
+
+ {id:17,type:'mc',por:'A competição aparece quando o recurso é limitado: comida, água ou território. Aqui o recurso disputado é o lugar para fazer o ninho.',
+  text:'Dois pica-paus brigam pelo mesmo oco de árvore para fazer ninho. Essa disputa é um exemplo de competição causada por:',
+  opts:['território.','falta de ar.','excesso de alimento.','parasitas.'],ans:0},
+
+ {id:18,type:'mc',por:'Pelo Princípio de Gause, a competição fica tão forte que só há três saídas: uma espécie se extingue, uma migra para outro território, ou uma delas muda de nicho e para de competir.',
+  text:'Segundo o Princípio de Gause, duas espécies que exploram exatamente o mesmo nicho ecológico não conseguem conviver por muito tempo. Uma das saídas possíveis é:',
+  opts:['uma das espécies migrar para outro território em busca de recursos.',
+        'as duas espécies se transformarem em uma só.',
+        'as duas espécies passarem a se alimentar uma da outra.',
+        'o ambiente criar mais recursos para as duas.'],ans:0},
+
+ {id:19,type:'mc',por:'São espécies diferentes, então é interespecífica. O pássaro ganha comida e a capivara se livra dos carrapatos: ninguém é prejudicado, logo é harmônica. Já o carrapato e a capivara formam uma relação desarmônica.',
+  text:'Observe três relações que acontecem ao mesmo tempo: o carrapato suga o sangue da capivara; o pássaro come os carrapatos; e a capivara fica livre dos carrapatos por causa do pássaro. A relação entre o <b>pássaro e a capivara</b> é:',
+  opts:['interespecífica harmônica.','interespecífica desarmônica.','intraespecífica harmônica.','intraespecífica desarmônica.'],ans:0,
+  vars:[{},
+        {text:'Observe três relações que acontecem ao mesmo tempo: o carrapato suga o sangue da capivara; o pássaro come os carrapatos; e a capivara fica livre dos carrapatos por causa do pássaro. A relação entre o <b>carrapato e a capivara</b> é:',ans:1,
+         por:'São espécies diferentes, então é interespecífica. E o carrapato prejudica a capivara, sugando o sangue dela: é desarmônica, um caso de parasitismo.'},
+        {text:'Observe três relações que acontecem ao mesmo tempo: o carrapato suga o sangue da capivara; o pássaro come os carrapatos; e a capivara fica livre dos carrapatos por causa do pássaro. A relação entre o <b>pássaro e o carrapato</b> é:',ans:1,
+         por:'São espécies diferentes, então é interespecífica. O pássaro come o carrapato, que sai prejudicado: é desarmônica, um caso de predação.'},
+        {}]},
+
+ {id:20,type:'mc',por:'São indivíduos da mesma espécie, então é intraespecífica. E há prejuízo claro para os filhotes, então é desarmônica. Esse caso tem nome próprio: canibalismo.',
+  text:'Em algumas espécies de peixe, os adultos comem os filhotes menores da própria espécie. Essa relação é:',
+  opts:['intraespecífica desarmônica.','interespecífica desarmônica.','intraespecífica harmônica.','interespecífica harmônica.'],ans:0}
+];
+let S = {nome:'',sala:'',data:'',started:false,submitted:false,answers:{},result:null};
+try{ const r = localStorage.getItem(KEY); if(r){ S = Object.assign(S, JSON.parse(r)); } }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+/* ---------- As quatro versões da prova ----------
+   Cada versão embaralha a ordem das questões e das alternativas, e algumas
+   questões trocam de enunciado (o campo 'vars'). O sorteio usa uma semente
+   fixa: a versão 3 é sempre a mesma prova, em qualquer aparelho, o que
+   permite conferir o gabarito depois.
+
+   A versão é sorteada quando o aluno abre pela primeira vez e não muda mais
+   até ele entregar — senão as respostas já dadas mudariam de lugar embaixo
+   dele. Para dar uma versão específica a uma turma, abra com ?v=2 no fim do
+   endereço. */
+
+function semente(v){
+  let s = (v*0x9E3779B1 + 0x85EBCA6B) >>> 0;
+  return function(){
+    s = (s + 0x6D2B79F5) >>> 0;
+    let t = Math.imul(s ^ (s>>>15), 1 | s);
+    t = (t + Math.imul(t ^ (t>>>7), 61 | t)) ^ t;
+    return ((t ^ (t>>>14)) >>> 0) / 4294967296;
+  };
+}
+
+function baralhar(arr, rnd){
+  const a = arr.slice();
+  for(let i=a.length-1; i>0; i--){
+    const j = Math.floor(rnd()*(i+1));
+    const t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+function montarVersao(v){
+  const rnd = semente(v+1);
+  const qs = BASE.map(base=>{
+    const q = Object.assign({}, base, (base.vars && base.vars[v % base.vars.length]) || null);
+    delete q.vars;
+    if(q.type==='mc'){
+      const ordem = baralhar(q.opts.map((_,i)=>i), rnd);
+      const antes = q.opts;
+      q.opts = ordem.map(i=>antes[i]);
+      q.ans = ordem.indexOf(q.ans);
+    }
+    else if(q.type==='multi'){ q.items = baralhar(q.items, rnd); }
+    else if(q.type==='match'){ q.left = baralhar(q.left, rnd); q.right = baralhar(q.right, rnd); }
+    else if(q.type==='sort'){ q.items = baralhar(q.items, rnd); q.zones = baralhar(q.zones, rnd); }
+    else if(q.type==='order'){ q.items = baralhar(q.items, rnd); }
+    else if(q.type==='blanks'){ q.bank = baralhar(q.bank, rnd); }
+    return q;
+  });
+  const ordenadas = baralhar(qs, rnd);
+  ordenadas.forEach((q,i)=>{ q.n = i+1; });   // número que o aluno vê
+  return ordenadas;
+}
+
+(function escolherVersao(){
+  const pedida = parseInt(new URLSearchParams(location.search).get('v'), 10);
+  if(!S.started && pedida>=1 && pedida<=VERSOES) S.versao = pedida-1;
+  if(typeof S.versao !== 'number' || S.versao<0 || S.versao>=VERSOES){
+    S.versao = Math.floor(Math.random()*VERSOES);
+  }
+  save();
+})();
+
+const Q = montarVersao(S.versao);
+const byId = {}; Q.forEach(q=>byId[q.id]=q);
+const sel = {};
+const $ = id=>document.getElementById(id);
+const esc = s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = n=>n.toFixed(1).replace('.',',');
+
+/* ---------- Ajuste à tela: tudo cabe, nada rola ---------- */
+let idx = 0, vista = 'capa';
+function fit(){
+  const st = $('stage'), bx = $('fitbox');
+  const padX = st.clientWidth < 420 ? 10 : 16, padY = 10;
+  const dispW = st.clientWidth - padX*2, dispH = st.clientHeight - padY*2;
+  if(dispW <= 0 || dispH <= 0) return;
+  const W = Math.min(820, dispW);
+  let s = 1;
+  for(let i=0;i<5;i++){
+    bx.style.transform = 'none';
+    bx.style.width = (W/s) + 'px';
+    const H = bx.offsetHeight;
+    if(!H) break;
+    const ns = Math.max(.45, Math.min(1, dispH/H));
+    if(Math.abs(ns-s) < .01){ s = ns; break; }
+    s = (s + ns)/2;                       // amortece para não oscilar
+  }
+  bx.style.transform = 'none';            // trava final: nunca deixa sobrar altura
+  bx.style.width = (W/s) + 'px';
+  const Hf = bx.offsetHeight;
+  if(Hf*s > dispH) s = Math.max(.4, dispH/Hf);
+  bx.style.transform = 'scale(' + s + ')';
+  const alt = Hf * s;
+  bx.style.left = (padX + (dispW - W)/2) + 'px';
+  bx.style.top  = (padY + Math.max(0,(dispH - alt)/2)) + 'px';
+  Q.filter(q=>q.type==='match').forEach(fios);
+}
+let fitPend = null;
+function refit(){ cancelAnimationFrame(fitPend); fitPend = requestAnimationFrame(fit); }
+window.addEventListener('resize',()=>{
+  const ae = document.activeElement;
+  if(ae && (ae.tagName==='INPUT')) return;   // teclado do celular não reduz a prova
+  refit();
+});
+window.addEventListener('orientationchange',()=>setTimeout(refit,250));
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(refit);
+
+function acordarVideo(){
+  document.querySelectorAll('.q video').forEach(v=>{
+    const ativo = v.closest('.q').classList.contains('ativa') && vista==='prova';
+    if(ativo){ const p = v.play(); if(p && p.catch) p.catch(()=>{}); }
+    else v.pause();
+  });
+}
+
+function verVista(v){
+  vista = v;
+  $('vCapa').classList.toggle('on', v==='capa');
+  $('vProva').classList.toggle('on', v==='prova');
+  $('vFim').classList.toggle('on', v==='fim');
+  $('barra').classList.toggle('on', v!=='capa');
+  $('navbar').classList.toggle('on', v==='prova');
+  refit();
+}
+const semAnimacao = ()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Encerra uma virada ainda em curso, para toques rápidos não deixarem
+   duas faces acesas ao mesmo tempo. */
+function limparCubo(){
+  const caixa = $('questoes'); if(!caixa) return;
+  $('stage').classList.remove('virando');
+  caixa.classList.remove('frente','tras');
+  caixa.querySelectorAll('.saindo,.girando').forEach(el=>el.classList.remove('saindo','girando'));
+}
+
+function cubo(antigo, novo, direcao){
+  limparCubo();
+  const caixa = $('questoes');
+  caixa.style.setProperty('--eixo', '-' + Math.round(caixa.offsetWidth/2) + 'px');
+  $('stage').classList.add('virando');
+  antigo.classList.add('saindo');
+  novo.classList.add('girando');
+  caixa.classList.add(direcao);
+  novo.addEventListener('animationend', limparCubo, {once:true});
+}
+
+function ir(i){
+  const alvo = Math.max(0, Math.min(Q.length-1, i));
+  const cartoes = document.querySelectorAll('.q');
+  const antigo = cartoes[idx], novo = cartoes[alvo];
+  const gira = vista==='prova' && antigo && novo && antigo!==novo && !semAnimacao();
+  const direcao = alvo > idx ? 'frente' : 'tras';
+
+  idx = alvo; S.idx = idx; save();
+  cartoes.forEach((el,n)=>el.classList.toggle('ativa', n===idx));
+  $('navMeio').textContent = 'Questão ' + (idx+1) + ' de ' + Q.length;
+  $('ant').disabled = idx===0;
+  $('prox').textContent = idx===Q.length-1 ? (S.submitted ? 'Ver a nota' : 'Entregar') : 'Avançar ▶';
+
+  if(vista!=='prova'){ verVista('prova'); return; }
+  refit();
+  acordarVideo();
+  if(gira) cubo(antigo, novo, direcao);
+}
+
+/* ---------- Faixa da capa ----------
+   Os sete tipos de relação se revezam no canto, com os sinais que dizem
+   quem ganha (+), quem perde (−) e quem não é afetado (0). */
+(function faixaViva(){
+  const nomeEl = $("relNome"), sinalEl = $("relSinal");
+  if(!nomeEl || semAnimacao()) return;
+  const RELACOES = [["Protocooperação","+ +"],["Mutualismo","+ +"],["Inquilinismo","+ 0"],
+                    ["Comensalismo","+ 0"],["Predação","+ −"],["Parasitismo","+ −"],["Competição","− −"]];
+  let i = 0;
+  function trocar(){
+    if(vista === "capa"){
+      i = (i+1) % RELACOES.length;
+      nomeEl.textContent = RELACOES[i][0];
+      sinalEl.textContent = RELACOES[i][1];
+      nomeEl.parentNode.animate([{opacity:0,transform:"translateY(7px)"},{opacity:1,transform:"none"}],
+                                {duration:420,easing:"ease-out"});
+    }
+    setTimeout(trocar, 2800);
+  }
+  setTimeout(trocar, 2200);
+})();
+
+/* ---------- Capa ---------- */
+$('nome').value = S.nome;
+function renderSalas(){
+  $('salas').innerHTML = SALAS.map(s=>`<button type="button" data-s="${s}" aria-pressed="${S.sala===s}" ${S.started?'disabled':''}>${s}</button>`).join('');
+}
+renderSalas();
+$('salas').addEventListener('click',e=>{
+  const b = e.target.closest('button'); if(!b||S.started) return;
+  S.sala = b.dataset.s; save(); renderSalas();
+});
+$('nome').addEventListener('input',e=>{ S.nome = e.target.value; save(); });
+$('comecar').addEventListener('click',()=>{
+  const nome = $('nome').value.trim();
+  if(nome.length < 3){ $('erroCapa').textContent = 'Digite seu nome completo para começar.'; $('nome').focus(); return; }
+  if(!S.sala){ $('erroCapa').textContent = 'Escolha a sua sala para começar.'; return; }
+  $('erroCapa').textContent = '';
+  S.nome = nome; S.started = true; save();
+  prepararSom();
+  iniciar();
+});
+
+function iniciar(){
+  $('nome').disabled = true; renderSalas();
+  $('acoesCapa').style.display = 'none';
+  $('barraAluno').textContent = S.nome + ', sala ' + S.sala;
+  montar();
+  if(!S.submitted) ir(S.idx||0);
+}
+
+/* ---------- Navegação ---------- */
+$('ant').addEventListener('click',()=>ir(idx-1));
+$('prox').addEventListener('click',()=>{
+  if(idx < Q.length-1) ir(idx+1);
+  else if(S.submitted) mostrarResultado();
+  else pedirEntrega();
+});
+
+/* ---------- Montagem ---------- */
+function montar(){
+  const tagTxt = {Marcar:'Interativa: marcar',Ligar:'Interativa: ligar',Arrastar:'Interativa: arrastar',Ordenar:'Interativa: ordenar',Tocar:'Interativa: tocar',Completar:'Interativa: completar'};
+  $('questoes').innerHTML = Q.map(q=>`
+    <article class="q" id="q${q.id}" aria-labelledby="qt${q.id}">
+      <div class="q-cab">
+        <span class="q-num">${q.n}</span>
+        ${q.tag?`<span class="tag">${tagTxt[q.tag]}</span>`:''}
+        <span class="valor">0,5 ponto</span>
+      </div>
+      <p class="q-texto" id="qt${q.id}">${q.text}</p>
+      ${q.hint?`<p class="dica">${q.hint}</p>`:''}
+      <div class="body" data-q="${q.id}"></div>
+      ${q.type!=='mc'?`<button class="limpar" data-limpar="${q.id}">Limpar esta questão</button>`:''}
+      <img class="marca" src="icons/icon-192.png" alt="" aria-hidden="true">
+    </article>`).join('');
+  Q.forEach(render);
+  document.querySelectorAll('.body').forEach(b=>{
+    b.addEventListener('click',onClick);
+    b.addEventListener('keydown',e=>{
+    });
+    b.addEventListener('dragstart',onDragStart);
+    b.addEventListener('dragover',onDragOver);
+    b.addEventListener('dragleave',e=>{ const z=e.target.closest('[data-zone]'); if(z) z.classList.remove('alvo'); });
+    b.addEventListener('drop',onDrop);
+  });
+  document.querySelectorAll('[data-limpar]').forEach(b=>b.addEventListener('click',()=>{
+    if(S.submitted) return;
+    const id = +b.dataset.limpar; delete S.answers[id]; sel[id]=null; save();
+    render(byId[id]); progresso(); refit();
+  }));
+  progresso();
+  if(S.submitted) mostrarResultado();
+}
+
+function render(q){
+  const body = document.querySelector(`.body[data-q="${q.id}"]`);
+  const a = S.answers[q.id];
+  const s = sel[q.id];
+  if(q.type==='mc'){
+    if(q.video){
+      // o quadro do vídeo é montado uma vez: recriá-lo faria o vídeo voltar ao início
+      if(!body.querySelector('.video-caixa')){
+        body.innerHTML = `<div class="video-caixa">
+          <div class="video-esq"><video preload="none" controls loop muted playsinline
+            src="${q.video}" aria-label="Vídeo da relação entre o paguro e a anêmona-do-mar">
+            Seu navegador não conseguiu abrir o vídeo.</video></div>
+          <div class="video-dir"></div></div>`;
+      }
+      body.querySelector('.video-dir').innerHTML = q.opts.map((o,i)=>`<button class="opt ${a===i?'on':''}" data-i="${i}" aria-pressed="${a===i}"><span class="let">${'abcde'[i]}</span><span>${o}</span></button>`).join('');
+    }
+    else if(q.figs){
+      body.innerHTML = `<div class="figs">${q.opts.map((o,i)=>`<button class="opt fig ${a===i?'on':''}" data-i="${i}" aria-pressed="${a===i}" aria-label="Figura ${'abcde'[i]}: ${o.nome}"><span class="let">${'abcde'[i]}</span>${o.svg}<span class="fig-nome">${o.nome}</span></button>`).join('')}</div>`;
+    } else {
+      body.innerHTML = q.opts.map((o,i)=>`<button class="opt ${a===i?'on':''}" data-i="${i}" aria-pressed="${a===i}"><span class="let">${'abcde'[i]}</span><span>${o}</span></button>`).join('');
+    }
+  }
+  else if(q.type==='multi'){
+    const m = a||[];
+    body.innerHTML = `<div class="bolhas">${q.items.map(it=>{
+      const on = m.indexOf(it.id)>=0;
+      return `<button class="bolha ${on?'on':''}" style="--c:${it.cor};--cs:${it.soft}" data-m="${it.id}" aria-pressed="${on}"><span class="tick" aria-hidden="true">✓</span><span>${it.t}</span></button>`;
+    }).join('')}</div>`;
+  }
+  else if(q.type==='match'){
+    const m = a||{};
+    const colors = ['#3E9A64','#B4813F','#9A6BC4','#3E96B8','#D2732C'];
+    const colorOf = lid=>colors[q.left.findIndex(l=>l.id===lid)];
+    body.innerHTML = `<div class="match"><svg aria-hidden="true"></svg>
+      <div class="col L">${q.left.map(l=>`<button class="mbtn ${s===l.id?'on':''}" data-side="L" data-id="${l.id}" style="${m[l.id]?`border-color:${colorOf(l.id)}`:''}" aria-pressed="${s===l.id}">${l.t}</button>`).join('')}</div>
+      <div class="col R">${q.right.map(r=>{ const lid = Object.keys(m).find(k=>m[k]===r.id); return `<button class="mbtn" data-side="R" data-id="${r.id}" style="${lid?`border-color:${colorOf(lid)}`:''}">${r.t}</button>`; }).join('')}</div></div>`;
+    requestAnimationFrame(()=>fios(q));
+  }
+  else if(q.type==='sort'){
+    const m = a||{};
+    const chip = it=>`<button class="chip ${s===it.id?'on':''}" draggable="true" data-item="${it.id}" aria-pressed="${s===it.id}">${it.t}</button>`;
+    const livres = q.items.filter(it=>!m[it.id]);
+    body.innerHTML = `<div class="pool" data-zone="">${livres.length?livres.map(chip).join(''):'<span class="vazio">Todos os itens foram colocados. Para trocar, toque em um item e depois no novo lugar.</span>'}</div>
+      <div class="zonas ${q.single?'um':'duas'}">${q.zones.map(z=>`<div class="zona ${z.cls||''}" data-zone="${z.id}"><h4>${z.t}</h4><div class="dentro">${q.items.filter(it=>m[it.id]===z.id).map(chip).join('')}</div></div>`).join('')}</div>`;
+  }
+  else if(q.type==='order'){
+    const m = a||[];
+    body.innerHTML = `<div class="ordem">${q.items.map(it=>{ const n = m.indexOf(it.id); return `<button class="obtn ${n>=0?'on':''}" data-o="${it.id}"><span class="n">${n>=0?n+1:''}</span><span>${it.t}</span></button>`; }).join('')}</div>`;
+  }
+  else if(q.type==='blanks'){
+    const m = a||[null,null,null,null];
+    const used = m.filter(Boolean);
+    body.innerHTML = `<p class="texto-lac">${q.parts.map(p=>typeof p==='number'
+        ? `<button class="blank ${m[p]?'cheia':''} ${s===p?'on':''}" data-b="${p}" aria-label="Lacuna ${p+1}${m[p]?': '+m[p]:', vazia'}">${m[p]||'______'}</button>`
+        : p).join('')}</p>
+      <div class="banco">${q.bank.filter(w=>!used.includes(w)).map(w=>`<button class="chip" data-w="${w}">${w}</button>`).join('')||'<span class="vazio">Banco de palavras vazio.</span>'}</div>`;
+  }
+  const cartao = document.getElementById('q'+q.id);
+  cartao.classList.toggle('feita', respondida(q));
+  const velha = cartao.querySelector('.correcao');
+  if(velha) velha.remove();                       // render roda mais de uma vez
+  if(S.submitted){
+    cartao.classList.add('travada');
+    body.insertAdjacentHTML('afterend', correcao(q));
+  }
+}
+
+/* ---------- Gabarito comentado ---------- */
+function gabarito(q){
+  if(q.type==='mc'){
+    const letra = 'abcde'[q.ans];
+    return q.figs ? `Figura <b>${letra}</b> — ${q.opts[q.ans].nome}`
+                  : `<b>${letra})</b> ${q.opts[q.ans]}`;
+  }
+  if(q.type==='multi') return q.items.filter(i=>i.ok).map(i=>esc(i.t)).join(' · ');
+  if(q.type==='match')
+    return '<ul class="lista">' + q.left.map(l=>`<li><b>${l.t}</b> → ${q.right.find(r=>r.id===l.id).t}</li>`).join('') + '</ul>';
+  if(q.type==='sort')
+    return '<ul class="lista">' + q.items.map(it=>`<li><b>${it.t}</b> → ${q.zones.find(z=>z.id===q.correct[it.id]).t}</li>`).join('') + '</ul>';
+  if(q.type==='order')
+    return '<ul class="lista">' + q.correct.map((cid,i)=>`<li><b>${i+1}º</b> ${q.items.find(x=>x.id===cid).t}</li>`).join('') + '</ul>';
+  if(q.type==='blanks') return q.answers.map((w,i)=>`<b>${i+1}.</b> ${w}`).join(' · ');
+  return '';
+}
+
+function correcao(q){
+  const p = pontos(q), cheio = p>=VAL-1e-9, zero = p<=1e-9;
+  const cls = cheio ? 'certa' : (zero ? 'errada' : 'parcial');
+  const veredito = cheio ? '✔ Você acertou' : (zero ? '✘ Você não pontuou nesta' : '◐ Você acertou em parte');
+  return `<div class="correcao ${cls}">
+    <p class="veredito">${veredito} · ${p.toFixed(2).replace('.',',')} de ${fmt(VAL)}</p>
+    <p class="resp"><span class="rot">Resposta certa:</span> ${gabarito(q)}</p>
+    ${q.por?`<p class="porque"><span class="rot">Por quê:</span> ${q.por}</p>`:''}
+  </div>`;
+}
+
+function fios(q){
+  const wrap = document.querySelector(`.body[data-q="${q.id}"] .match`); if(!wrap||!wrap.offsetParent) return;
+  const svg = wrap.querySelector('svg'); const box = wrap.getBoundingClientRect();
+  const m = S.answers[q.id]||{};
+  const colors = ['#3E9A64','#B4813F','#9A6BC4','#3E96B8','#D2732C'];
+  svg.setAttribute('viewBox',`0 0 ${box.width} ${box.height}`);
+  svg.innerHTML = Object.keys(m).map(lid=>{
+    const lb = wrap.querySelector(`[data-side="L"][data-id="${lid}"]`).getBoundingClientRect();
+    const rb = wrap.querySelector(`[data-side="R"][data-id="${m[lid]}"]`).getBoundingClientRect();
+    const x1 = lb.right-box.left, y1 = lb.top+lb.height/2-box.top, x2 = rb.left-box.left, y2 = rb.top+rb.height/2-box.top;
+    const c = colors[q.left.findIndex(l=>l.id===lid)], mx = (x1+x2)/2;
+    return `<path d="M${x1} ${y1} C${mx} ${y1},${mx} ${y2},${x2} ${y2}" stroke="${c}" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="${x1}" cy="${y1}" r="5" fill="${c}"/><circle cx="${x2}" cy="${y2}" r="5" fill="${c}"/>`;
+  }).join('');
+}
+
+/* ---------- Interação ---------- */
+function onClick(e){
+  if(S.submitted) return;
+  const body = e.currentTarget, q = byId[+body.dataset.q], id = q.id;
+  if(q.type==='mc'){
+    const b = e.target.closest('.opt'); if(!b) return;
+    S.answers[id] = +b.dataset.i;
+  }
+  else if(q.type==='multi'){
+    const b = e.target.closest('.bolha'); if(!b) return;
+    const m = S.answers[id] = S.answers[id]||[];
+    const i = m.indexOf(b.dataset.m);
+    if(i>=0) m.splice(i,1); else m.push(b.dataset.m);
+  }
+  else if(q.type==='match'){
+    const b = e.target.closest('.mbtn'); if(!b) return;
+    const m = S.answers[id] = S.answers[id]||{};
+    if(b.dataset.side==='L'){ sel[id] = sel[id]===b.dataset.id ? null : b.dataset.id; }
+    else{
+      const rid = b.dataset.id;
+      const dono = Object.keys(m).find(k=>m[k]===rid);
+      if(sel[id]){ if(dono) delete m[dono]; m[sel[id]] = rid; sel[id] = null; }
+      else if(dono){ delete m[dono]; }
+      else return;
+    }
+  }
+  else if(q.type==='sort'){
+    const c = e.target.closest('.chip');
+    if(c){ sel[id] = sel[id]===c.dataset.item ? null : c.dataset.item; }
+    else{
+      const z = e.target.closest('[data-zone]'); if(!z || !sel[id]) return;
+      colocar(q, sel[id], z.dataset.zone); sel[id] = null;
+    }
+  }
+  else if(q.type==='order'){
+    const b = e.target.closest('.obtn'); if(!b) return;
+    const m = S.answers[id] = S.answers[id]||[];
+    const i = m.indexOf(b.dataset.o);
+    if(i>=0) m.splice(i,1); else m.push(b.dataset.o);
+  }
+  else if(q.type==='blanks'){
+    const m = S.answers[id] = S.answers[id]||[null,null,null,null];
+    const bl = e.target.closest('.blank'), w = e.target.closest('[data-w]');
+    if(bl){ const i = +bl.dataset.b; if(m[i]){ m[i] = null; sel[id] = i; } else sel[id] = sel[id]===i ? null : i; }
+    else if(w){
+      let t = (sel[id]!=null && !m[sel[id]]) ? sel[id] : m.findIndex(x=>!x);
+      if(t<0) return;
+      m[t] = w.dataset.w; sel[id] = null;
+    } else return;
+  }
+  save(); render(q); progresso(); refit();
+}
+function colocar(q,item,zona){
+  const m = S.answers[q.id] = S.answers[q.id]||{};
+  if(!zona){ delete m[item]; return; }
+  if(q.single){ Object.keys(m).forEach(k=>{ if(m[k]===zona && k!==item) delete m[k]; }); }
+  m[item] = zona;
+}
+function onDragStart(e){
+  const c = e.target.closest && e.target.closest('.chip[data-item]'); if(!c||S.submitted) return;
+  e.dataTransfer.setData('text/plain', c.dataset.item); e.dataTransfer.effectAllowed='move';
+}
+function onDragOver(e){
+  const z = e.target.closest('[data-zone]'); if(!z) return;
+  e.preventDefault(); z.classList.add('alvo');
+}
+function onDrop(e){
+  const z = e.target.closest('[data-zone]'); if(!z||S.submitted) return;
+  e.preventDefault();
+  const q = byId[+e.currentTarget.dataset.q], item = e.dataTransfer.getData('text/plain');
+  if(!q.items.some(i=>i.id===item)) return;
+  colocar(q,item,z.dataset.zone); sel[q.id]=null; save(); render(q); progresso(); refit();
+}
+
+/* ---------- Progresso e nota ---------- */
+function respondida(q){
+  const a = S.answers[q.id];
+  if(a===undefined||a===null) return false;
+  if(q.type==='mc') return true;
+  if(q.type==='multi') return a.length>0;
+  if(q.type==='match') return q.left.every(l=>a[l.id]);
+  if(q.type==='sort') return q.items.every(i=>a[i.id]);
+  if(q.type==='order') return a.length===q.items.length;
+  if(q.type==='blanks') return a.every(Boolean);
+  return false;
+}
+function progresso(){
+  const n = Q.filter(respondida).length;
+  $('barraCont').textContent = `${n}/20`;
+  $('barraFill').style.width = (n/20*100)+'%';
+}
+function pontos(q){
+  const a = S.answers[q.id];
+  if(a===undefined||a===null) return 0;
+  let f = 0;
+  if(q.type==='mc') f = a===q.ans ? 1 : 0;
+  else if(q.type==='multi'){
+    // Cada certa marcada soma, cada errada marcada desconta na mesma medida.
+    // Assim quem marca tudo fica com zero, e quem sabia quase tudo leva parte.
+    const certos = q.items.filter(i=>i.ok), errados = q.items.filter(i=>!i.ok);
+    const acertou = certos.filter(i=>a.indexOf(i.id)>=0).length;
+    const errou   = errados.filter(i=>a.indexOf(i.id)>=0).length;
+    f = Math.max(0, acertou/certos.length - (errados.length ? errou/errados.length : 0));
+  }
+  else if(q.type==='match') f = q.left.filter(l=>a[l.id]===l.id).length/q.left.length;
+  else if(q.type==='sort') f = q.items.filter(i=>a[i.id]===q.correct[i.id]).length/q.items.length;
+  else if(q.type==='order') f = q.correct.filter((c,i)=>a[i]===c).length/q.correct.length;
+  else if(q.type==='blanks') f = q.answers.filter((w,i)=>a[i]===w).length/q.answers.length;
+  return f*VAL;
+}
+
+/* ---------- Entrega ---------- */
+let faltando = [], modalAcao = 'entregar';
+
+/* Recomeçar com outra versão: a nota já entregue continua valendo e já foi
+   enviada. Aqui só se limpa a tela e se sorteia uma versão diferente desta. */
+function pedirOutraProva(){
+  faltando = []; modalAcao = 'outra';
+  $('modalT').textContent = 'Fazer outra prova?';
+  $('modalP').textContent = 'Sua nota já foi registrada e enviada ao professor, e não se perde. Você vai receber outra versão, com as questões e as alternativas em outra ordem. As respostas desta prova saem da tela.';
+  $('modalOk').textContent = 'Começar a nova prova';
+  $('modalVolta').textContent = 'Ficar nesta';
+  $('modal').classList.add('on'); $('modalVolta').focus();
+}
+function outraProva(){
+  const nova = (S.versao + 1 + Math.floor(Math.random()*(VERSOES-1))) % VERSOES;  // qualquer uma, menos a atual
+  S = {nome:S.nome, sala:S.sala, started:false, submitted:false, answers:{}, result:null, versao:nova, idx:0};
+  save();
+  // se o link tinha ?v= travando uma versão, a trava sai — senão voltaria a mesma
+  const u = new URL(location.href); u.searchParams.delete('v');
+  location.replace(u.toString());   // a prova é remontada do zero com a versão nova
+}
+
+function pedirEntrega(){
+  modalAcao = 'entregar';
+  if(S.submitted) return;
+  faltando = Q.filter(q=>!respondida(q)).map(q=>q.n);
+  if(faltando.length){
+    $('modalT').textContent = faltando.length===1 ? 'Falta 1 questão' : `Faltam ${faltando.length} questões`;
+    $('modalP').textContent = `Ainda não estão completas: ${faltando.join(', ')}. Se entregar agora, elas contam como estão. Depois da entrega, não é possível mudar as respostas.`;
+    $('modalOk').textContent = 'Entregar assim mesmo';
+    $('modalVolta').textContent = 'Ir para a questão ' + faltando[0];
+  } else {
+    $('modalT').textContent = 'Entregar a prova?';
+    $('modalP').textContent = 'Depois da entrega, não é possível mudar as respostas.';
+    $('modalOk').textContent = 'Entregar';
+    $('modalVolta').textContent = 'Voltar e revisar';
+  }
+  $('modal').classList.add('on'); $('modalVolta').focus();
+}
+$('modalVolta').addEventListener('click',()=>{
+  $('modal').classList.remove('on');
+  if(faltando.length) ir(faltando[0]-1);
+});
+$('modalOk').addEventListener('click',()=>{
+  $('modal').classList.remove('on');
+  if(modalAcao === 'outra'){ outraProva(); return; }
+  const pts = Q.map(pontos);
+  const total = Math.round(pts.reduce((s,x)=>s+x,0)*10)/10;
+  S.submitted = true;
+  S.result = {nota: total, pts, quando: new Date().toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}),
+              frase: Math.floor(Math.random()*4)};
+  S.envioId = (self.crypto && crypto.randomUUID) ? crypto.randomUUID()
+              : Date.now() + '-' + Math.random().toString(36).slice(2);
+  save();
+  enfileirar();
+  Q.forEach(render);
+  mostrarResultado();
+});
+
+/* ---------- Envio da nota ao professor ---------- */
+const FILA = KEY + '-fila';
+
+/* O formulário não responde a páginas de fora ('no-cors'): a prova sabe que
+   a nota saiu do aparelho, mas não recebe confirmação de volta. Por isso o
+   comprovante na tela continua valendo, e por isso vale testar antes da aula. */
+function enviarUm(item){
+  const corpo = new URLSearchParams();
+  Object.keys(ENVIO.campos).forEach(k=>{
+    if(item[k] !== undefined) corpo.append(ENVIO.campos[k], item[k]);
+  });
+  return fetch(ENVIO.url, {method:'POST', mode:'no-cors', body:corpo});
+}
+function lerFila(){ try{ return JSON.parse(localStorage.getItem(FILA)||'[]'); }catch(e){ return []; } }
+function gravarFila(f){ try{ localStorage.setItem(FILA, JSON.stringify(f)); }catch(e){} }
+
+function enfileirar(){
+  const r = S.result; if(!r) return;
+  const certas  = r.pts.filter(p=>p>=VAL-1e-9).length;
+  const zeradas = r.pts.filter(p=>p<=1e-9).length;
+  const f = lerFila();
+  if(f.some(x=>x.id===S.envioId)) return;
+  /* Os pontos vão numerados pela questão de origem, e não pela posição em
+     que ela caiu nesta versão: assim a coluna Q7 quer dizer a mesma questão
+     em todas as provas, e dá para comparar a turma inteira. */
+  const pontos = Q.map((q,i)=>({id:q.id, p:r.pts[i]}))
+                  .sort((a,b)=>a.id-b.id)
+                  .map(x=>x.id+':'+String(Math.round(x.p*100)/100).replace('.',','))
+                  .join(' ');
+  f.push({
+    id: S.envioId,
+    nome: S.nome,
+    turma: S.sala,
+    turno: 'Manhã',   // as três turmas são do turno da manhã
+    nota: fmt(r.nota),
+    acertos: certas + ' de ' + Q.length,
+    detalhe: PROVA + ' versão ' + (S.versao+1) + ' · ' + pontos +
+             ' · ' + (Q.length-certas-zeradas) + ' em parte, ' + zeradas + ' zeradas' +
+             ' · entregue ' + r.quando
+  });
+  gravarFila(f);
+}
+
+function estadoEnvio(estado){
+  const el = $('envio'); if(!el) return;
+  const txt = {
+    'sem-config':'',
+    enviando:'Enviando a nota ao professor…',
+    ok:'✔ Nota enviada ao professor.',
+    falhou:'Sem conexão: a nota está guardada neste aparelho e vai sozinha quando houver internet. Mostre esta tela ao professor.'
+  };
+  el.className = 'envio ' + estado;
+  el.textContent = txt[estado] || '';
+  $('reenviar').style.display = estado==='falhou' ? '' : 'none';
+  refit();
+}
+
+async function enviarFila(){
+  if(!ENVIO.ativo || !ENVIO.url) return estadoEnvio('sem-config');
+  const f = lerFila();
+  if(!f.length) return estadoEnvio('ok');
+  estadoEnvio('enviando');
+  const restantes = [];
+  for(const item of f){
+    try{ await enviarUm(item); }
+    catch(e){ restantes.push(item); }
+  }
+  gravarFila(restantes);
+  estadoEnvio(restantes.length ? 'falhou' : 'ok');
+}
+window.addEventListener('online', ()=>{ if(S.submitted) enviarFila(); });
+
+function mostrarResultado(){
+  const r = S.result; if(!r) return;
+  $('notaCapa').textContent = fmt(r.nota);
+  const el = $('resultado');
+  el.innerHTML = `<img class="selo-fim" src="icons/icon-192.png" alt="" aria-hidden="true">
+    <h2>Prova entregue</h2>
+    <p class="nota">${fmt(r.nota)} <small>de 10,0</small></p>
+    <p class="res-info">${esc(S.nome)}, sala ${esc(S.sala)}. Entregue em ${esc(r.quando)}. Versão ${S.versao+1}.</p>
+    <p class="recado ${r.nota>=6?'boa':'anima'}">${(r.nota>=6?FRASES_PARABENS:FRASES_ANIMO)[r.frase||0]}</p>
+    <div class="grade">${r.pts.map((p,i)=>{ const cls = p>=VAL-1e-9 ? 'c' : (p>0 ? 'p' : 'e'); return `<div class="${cls}"><span>Questão ${i+1}</span><strong>${p.toFixed(2).replace('.',',')}</strong></div>`; }).join('')}</div>
+    <p class="aviso-final">Verde: acertou tudo. Amarelo: acertou em parte. Vermelho: não pontuou. Mostre esta tela ao professor.</p>
+    <div class="acoes-fim"><button class="btn" id="verGabarito">Conferir o gabarito</button>
+      <button class="btn sec" id="outraProva">Fazer outra prova</button></div>
+    <p class="envio" id="envio"></p>
+    <button class="btn sec" id="reenviar" style="display:none">Tentar enviar de novo</button>`;
+  $('reenviar').addEventListener('click', enviarFila);
+  $('verGabarito').addEventListener('click', ()=>{ verVista('prova'); ir(0); });
+  $('outraProva').addEventListener('click', pedirOutraProva);
+  verVista('fim');
+  tocarResultado();
+  if(ENVIO.ativo) enviarFila();
+}
+
+if(S.started) iniciar(); else refit();
+})();
+</script>
+</body>
+</html>
